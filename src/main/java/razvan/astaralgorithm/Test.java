@@ -50,6 +50,24 @@ public class Test extends Application {
 
             List<int[]> path = Example.getPathList();
 
+            drawPath(path, grid);
+        });
+
+        GridPane root = new GridPane();
+        root.add(gridPane, 0,0);
+        root.add(vbox, 1,0);
+
+        Scene scene = new Scene(root, 1200, 1000);
+
+        primaryStage.setTitle("Colored Grid with Drawing");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        drawOnTopOfGrid(gc, GRID_SIZE);
+
+    }
+
+    public void drawPath(List<int[]> path, MyCell[][] grid){
+        new Thread(()->{
             for(int[] cell : path){
                 //iterate through MyCell[][] grid and find the cell with the same row and col as the cell in path
                 for(int i = 0; i < grid.length; i++){
@@ -59,19 +77,13 @@ public class Test extends Application {
                         }
                     }
                 }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        });
-
-        GridPane root = new GridPane();
-        root.add(gridPane, 0,0);
-        root.add(vbox, 1,0);
-
-        Scene scene = new Scene(root, 1000, 1000);
-
-        primaryStage.setTitle("Colored Grid with Drawing");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-        drawOnTopOfGrid(gc, GRID_SIZE);
+        }).start();
 
     }
 

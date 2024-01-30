@@ -85,10 +85,10 @@ public class Creator {
                 System.out.println("Clicked on cell: " + cell.getRow() + " " + cell.getCol());
             });
             if(cell.isObstacle()){
-                vbox.setStyle("-fx-background-color: " + toHex(Color.DARKGREY) + ";");
+                vbox.setStyle("-fx-background-color: " + toHex(Color.DARKGREEN) + ";");
             }
             else{
-                vbox.setStyle("-fx-background-color: " + toHex(Color.WHITE) + ";");
+                vbox.setStyle("-fx-background-color: " + toHex(Color.LIGHTBLUE) + ";");
             }
         }
     }
