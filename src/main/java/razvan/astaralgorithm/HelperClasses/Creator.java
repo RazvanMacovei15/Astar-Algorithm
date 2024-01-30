@@ -30,7 +30,7 @@ public class Creator {
 
         for (int row = 0; row < GRID_SIZE; row++) {
             for (int col = 0; col < GRID_SIZE; col++) {
-                MyCell newCell = new MyCell(new VBox(), row+1, col+1);
+                MyCell newCell = new MyCell(new VBox(), row, col);
                 VBox vbox = newCell.getVbox();
                 vbox.setPrefSize(cellWidth, cellHeight);
                 vbox.setLayoutX(col * cellWidth);

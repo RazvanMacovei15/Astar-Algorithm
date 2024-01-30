@@ -45,10 +45,10 @@ public class Example {
         };
 
         // Source is the left-most bottom-most corner
-        int[] src = {5, 1};
+        int[] src = {4, 0};
 
         // Destination is the left-most top-most corner
-        int[] dest = {10, 2};
+        int[] dest = {9, 1};
 
         aStarSearch(grid, src, dest);
     }
@@ -99,10 +99,22 @@ public class Example {
     }
 
     public static void aStarSearch(int[][] grid, int[] src, int[] dest) {
-        if (!isValid(src[0], src[1]) || !isValid(dest[0], dest[1])) {
-            System.out.println("Source or destination is invalid");
+        System.out.println("Source: (" + src[0] + ", " + src[1] + ")");
+        System.out.println("Destination: (" + dest[0] + ", " + dest[1] + ")");
+//        if (!isValid(src[0], src[1]) || !isValid(dest[0], dest[1])) {
+//            System.out.println("Source or destination is invalid");
+//            return;
+//        }
+        if (!isValid(src[0], src[1])) {
+            System.out.println("Source at index 0 or index 1 is invalid");
             return;
         }
+
+        if (!isValid(dest[0], dest[1])) {
+            System.out.println("Destination at index 0 or index 1 is invalid");
+            return;
+        }
+
 
         if (!isUnBlocked(grid, src[0], src[1]) || !isUnBlocked(grid, dest[0], dest[1])) {
             System.out.println("Source or the destination is blocked");
