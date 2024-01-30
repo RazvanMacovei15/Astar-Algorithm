@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="razvan.astaralgorithm.View.Controller">
+    <HBox fx:id="hBox" GridPane.columnIndex="0" GridPane.rowIndex="0">
+
+    </HBox>
+    <Button text="Button"
+            fx:id="button"
+            onAction="#onButtonClicked"
+            GridPane.rowIndex="1"
+            GridPane.columnIndex="0"/>
+</GridPane>

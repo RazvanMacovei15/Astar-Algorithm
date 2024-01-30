@@ -13,4 +13,9 @@ module razvan.astaralgorithm {
 
     opens razvan.astaralgorithm to javafx.fxml;
     exports razvan.astaralgorithm;
+
+    opens razvan.astaralgorithm.Domain to javafx.graphics, javafx.fxml;
+    exports razvan.astaralgorithm.Domain;
+    opens razvan.astaralgorithm.View to javafx.graphics, javafx.fxml;
+    exports razvan.astaralgorithm.View;
 }
