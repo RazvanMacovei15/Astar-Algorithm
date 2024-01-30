@@ -18,6 +18,8 @@ class Cell {
         this.g = 0;
         this.h = 0;
     }
+
+
 }
 
 public class Example {
@@ -25,7 +27,11 @@ public class Example {
     private static final int ROW = 10;
     private static final int COL = 10;
 
+    static List<int[]> pathList = null;
 
+    public static List<int[]> getPathList() {
+        return pathList;
+    }
 
     public static void main(String[] args) {
         // Description of the Grid-
@@ -69,7 +75,9 @@ public class Example {
         return Math.sqrt((row - dest[0]) * (row - dest[0]) + (col - dest[1]) * (col - dest[1]));
     }
 
-    private static void tracePath(Cell[][] cellDetails, int[] dest) {
+
+
+    public static List<int[]> tracePath(Cell[][] cellDetails, int[] dest) {
         System.out.println("The Path is ");
         int row = dest[0];
         int col = dest[1];
@@ -85,7 +93,7 @@ public class Example {
         }
 
         path.put(new int[]{row, col}, true);
-        List<int[]> pathList = new ArrayList<>(path.keySet());
+        pathList = new ArrayList<>(path.keySet());
         Collections.reverse(pathList);
 
         pathList.forEach(p -> {
@@ -96,24 +104,17 @@ public class Example {
             }
         });
         System.out.println();
+        return pathList;
     }
 
     public static void aStarSearch(int[][] grid, int[] src, int[] dest) {
         System.out.println("Source: (" + src[0] + ", " + src[1] + ")");
         System.out.println("Destination: (" + dest[0] + ", " + dest[1] + ")");
-//        if (!isValid(src[0], src[1]) || !isValid(dest[0], dest[1])) {
-//            System.out.println("Source or destination is invalid");
-//            return;
-//        }
-        if (!isValid(src[0], src[1])) {
-            System.out.println("Source at index 0 or index 1 is invalid");
+        if (!isValid(src[0], src[1]) || !isValid(dest[0], dest[1])) {
+            System.out.println("Source or destination is invalid");
             return;
         }
 
-        if (!isValid(dest[0], dest[1])) {
-            System.out.println("Destination at index 0 or index 1 is invalid");
-            return;
-        }
 
 
         if (!isUnBlocked(grid, src[0], src[1]) || !isUnBlocked(grid, dest[0], dest[1])) {

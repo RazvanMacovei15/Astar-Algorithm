@@ -15,6 +15,10 @@ public class Creator {
     static MyCell[][] grid = null;
     static int[][] intGrid = null;
 
+    public static MyCell[][] getGrid() {
+        return grid;
+    }
+
     public static int[][] getIntGrid() {
         return intGrid;
     }

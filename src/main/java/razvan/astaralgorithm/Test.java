@@ -1,6 +1,7 @@
 package razvan.astaralgorithm;
 
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -12,7 +13,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import razvan.astaralgorithm.Domain.Examples.Example;
+import razvan.astaralgorithm.Domain.MyCell;
 import razvan.astaralgorithm.HelperClasses.Creator;
+
+import java.util.List;
+import java.util.Map;
 
 public class Test extends Application {
 
@@ -35,11 +40,26 @@ public class Test extends Application {
         Button button = new Button("Start");
         vbox.getChildren().addAll(startRow, startCol, endRow, endCol, button);
 
+        MyCell[][] grid = Creator.getGrid();
 
         button.setOnMouseClicked(event -> {
             int[] start = {Integer.parseInt(startRow.getText()), Integer.parseInt(startCol.getText())};
             int[] end = {Integer.parseInt(endRow.getText()), Integer.parseInt(endCol.getText())};
+
             Example.aStarSearch(intGrid, start, end);
+
+            List<int[]> path = Example.getPathList();
+
+            for(int[] cell : path){
+                //iterate through MyCell[][] grid and find the cell with the same row and col as the cell in path
+                for(int i = 0; i < grid.length; i++){
+                    for(int j = 0; j < grid.length; j++){
+                        if(grid[i][j].getRow() == cell[0] && grid[i][j].getCol() == cell[1]){
+                            grid[i][j].getVbox().setStyle("-fx-background-color: #00ff00");
+                        }
+                    }
+                }
+            }
         });
 
         GridPane root = new GridPane();
