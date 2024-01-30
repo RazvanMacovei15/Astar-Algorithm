@@ -1,4 +1,4 @@
-package razvan.astaralgorithm.Domain;
+package razvan.astaralgorithm.Domain.Examples;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,30 +22,33 @@ class Cell {
 
 public class Example {
 
-    private static final int ROW = 9;
+    private static final int ROW = 10;
     private static final int COL = 10;
+
+
 
     public static void main(String[] args) {
         // Description of the Grid-
         // 1--> The cell is not blocked
         // 0--> The cell is blocked
         int[][] grid = {
-                {1, 0, 1, 1, 1, 1, 0, 1, 1, 1},
-                {1, 1, 1, 0, 1, 1, 1, 0, 1, 1},
-                {1, 1, 1, 0, 1, 1, 0, 1, 0, 1},
-                {0, 0, 1, 0, 1, 0, 0, 0, 0, 1},
-                {1, 1, 1, 0, 1, 1, 1, 0, 1, 0},
-                {1, 0, 1, 1, 1, 1, 0, 1, 0, 0},
-                {1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-                {1, 0, 1, 1, 1, 1, 0, 1, 1, 1},
-                {1, 1, 1, 0, 0, 0, 1, 0, 0, 1}
+                {1, 1, 1, 0, 1, 0, 0, 1, 0, 0},
+                {0, 0, 0, 0, 1, 1, 1, 1, 1, 0},
+                {1, 1, 0, 0, 1, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+                {1, 0, 1, 0, 0, 0, 1, 1, 1, 0},
+                {1, 1, 0, 1, 0, 0, 0, 1, 1, 1},
+                {1, 0, 0, 1, 0, 0, 0, 1, 1, 1},
+                {1, 1, 0, 0, 1, 1, 0, 1, 0, 0},
+                {1, 1, 1, 1, 1, 1, 0, 0, 0, 1},
+                {1, 1, 0, 1, 1, 0, 0, 1, 1, 0}
         };
 
         // Source is the left-most bottom-most corner
-        int[] src = {8, 0};
+        int[] src = {5, 1};
 
         // Destination is the left-most top-most corner
-        int[] dest = {0, 0};
+        int[] dest = {10, 2};
 
         aStarSearch(grid, src, dest);
     }
@@ -95,7 +98,7 @@ public class Example {
         System.out.println();
     }
 
-    private static void aStarSearch(int[][] grid, int[] src, int[] dest) {
+    public static void aStarSearch(int[][] grid, int[] src, int[] dest) {
         if (!isValid(src[0], src[1]) || !isValid(dest[0], dest[1])) {
             System.out.println("Source or destination is invalid");
             return;
