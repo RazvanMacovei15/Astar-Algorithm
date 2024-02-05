@@ -13,10 +13,12 @@ public class Algorithm implements Runnable{
     private double fNew;
     private List<int[]> pathList = null;
 
-    private int[][] intGrid;
+//    private int[][] intGrid;
 
-    public Algorithm(int[][] grid) {
-        this.intGrid = grid;
+    private MyCell[][] myCellGrid;
+
+    public Algorithm(MyCell[][] myCellGrid) {
+        this.myCellGrid = myCellGrid;
     }
 
     public List<int[]> getPathList() {
@@ -27,8 +29,8 @@ public class Algorithm implements Runnable{
         return (row >= 0) && (row < ROW) && (col >= 0) && (col < COL);
     }
 
-    private boolean isUnBlocked(int[][] grid, int row, int col) {
-        return grid[row][col] == 1;
+    private boolean isUnBlocked(MyCell[][] grid, int row, int col) {
+        return grid[row][col].isObstacle();
     }
 
     private boolean isDestination(int row, int col, int[] dest) {
@@ -84,7 +86,7 @@ public class Algorithm implements Runnable{
                 foundDest = true;
                 System.out.println("The destination cell is found in the first successor");
                 return true;
-            } else if (!closedList[i - 1][j] && isUnBlocked(intGrid, i - 1, j)) {
+            } else if (!closedList[i - 1][j] && isUnBlocked(myCellGrid, i - 1, j)) {
                 gNew = myCellGrid[i][j].getG() + 1;
                 hNew = calculateHValue(i - 1, j, dest);
                 fNew = gNew + hNew;
@@ -115,7 +117,7 @@ public class Algorithm implements Runnable{
                 foundDest = true;
                 System.out.println("The destination cell is found in the second successor");
                 return true;
-            } else if (!closedList[i + 1][j] && isUnBlocked(intGrid, i + 1, j)) {
+            } else if (!closedList[i + 1][j] && isUnBlocked(myCellGrid, i + 1, j)) {
                 gNew = myCellGrid[i][j].getG() + 1;
                 hNew = calculateHValue(i + 1, j, dest);
                 fNew = gNew + hNew;
@@ -144,7 +146,7 @@ public class Algorithm implements Runnable{
                 foundDest = true;
                 System.out.println("The destination cell is found in the third successor");
                 return true;
-            } else if (!closedList[i][j + 1] && isUnBlocked(intGrid, i, j + 1)) {
+            } else if (!closedList[i][j + 1] && isUnBlocked(myCellGrid, i, j + 1)) {
                 gNew = myCellGrid[i][j].getG() + 1;
                 hNew = calculateHValue(i, j + 1, dest);
                 fNew = gNew + hNew;
@@ -173,7 +175,7 @@ public class Algorithm implements Runnable{
                 foundDest = true;
                 System.out.println("The destination cell is found in the forth successor");
                 return true;
-            } else if (!closedList[i][j - 1] && isUnBlocked(intGrid, i, j - 1)) {
+            } else if (!closedList[i][j - 1] && isUnBlocked(myCellGrid, i, j - 1)) {
                 gNew = myCellGrid[i][j].getG() + 1;
                 hNew = calculateHValue(i, j - 1, dest);
                 fNew = gNew + hNew;
@@ -202,7 +204,7 @@ public class Algorithm implements Runnable{
                 foundDest = true;
                 System.out.println("The destination cell is found in the fifth successor");
                 return true;
-            } else if (!closedList[i - 1][j + 1] && isUnBlocked(intGrid, i - 1, j + 1)) {
+            } else if (!closedList[i - 1][j + 1] && isUnBlocked(myCellGrid, i - 1, j + 1)) {
                 gNew = myCellGrid[i][j].getG() + 1.414;
                 hNew = calculateHValue(i - 1, j + 1, dest);
                 fNew = gNew + hNew;
@@ -231,7 +233,7 @@ public class Algorithm implements Runnable{
                 foundDest = true;
                 System.out.println("The destination cell is found in the sixth successor");
                 return true;
-            } else if (!closedList[i - 1][j - 1] && isUnBlocked(intGrid, i - 1, j - 1)) {
+            } else if (!closedList[i - 1][j - 1] && isUnBlocked(myCellGrid, i - 1, j - 1)) {
                 gNew = myCellGrid[i][j].getG() + 1.414;
                 hNew = calculateHValue(i - 1, j - 1, dest);
                 fNew = gNew + hNew;
@@ -260,7 +262,7 @@ public class Algorithm implements Runnable{
                 foundDest = true;
                 System.out.println("The destination cell is found in the seventh successor");
                 return true;
-            } else if (!closedList[i + 1][j + 1] && isUnBlocked(intGrid, i + 1, j + 1)) {
+            } else if (!closedList[i + 1][j + 1] && isUnBlocked(myCellGrid, i + 1, j + 1)) {
                 gNew = myCellGrid[i][j].getG() + 1.414;
                 hNew = calculateHValue(i + 1, j + 1, dest);
                 fNew = gNew + hNew;
@@ -289,7 +291,7 @@ public class Algorithm implements Runnable{
                 foundDest = true;
                 System.out.println("The destination cell is found in the eight successor");
                 return true;
-            } else if (!closedList[i + 1][j - 1] && isUnBlocked(intGrid, i + 1, j - 1)) {
+            } else if (!closedList[i + 1][j - 1] && isUnBlocked(myCellGrid, i + 1, j - 1)) {
                 gNew = myCellGrid[i][j].getG() + 1.414;
                 hNew = calculateHValue(i + 1, j - 1, dest);
                 fNew = gNew + hNew;
@@ -308,6 +310,18 @@ public class Algorithm implements Runnable{
         return false;
     }
 
+    public void printGrid(MyCell[][] grid){
+        for(int i = 0; i < grid.length; i++){
+            for(int j = 0; j < grid.length; j++){
+                if(grid[i][j].isObstacle()){
+                    System.out.print("1 ");
+                } else {
+                    System.out.print("0 ");
+                }
+            }
+            System.out.println();
+        }
+    }
     public void aStarSearch(int[] src, int[] dest) {
 
         System.out.println("Source: (" + src[0] + ", " + src[1] + ")");
@@ -323,7 +337,7 @@ public class Algorithm implements Runnable{
             return;
         }
 
-        if (!isUnBlocked(intGrid, src[0], src[1]) || !isUnBlocked(intGrid, dest[0], dest[1])) {
+        if (!isUnBlocked(myCellGrid, src[0], src[1]) || !isUnBlocked(myCellGrid, dest[0], dest[1])) {
             System.out.println("Source or the destination is blocked");
             return;
         }
@@ -334,13 +348,6 @@ public class Algorithm implements Runnable{
         }
 
         boolean[][] closedList = new boolean[ROW][COL];
-        MyCell[][] myCellGrid = new MyCell[ROW][COL];
-
-        for (int row = 0; row < ROW; row++) {
-            for (int col = 0; col < COL; col++) {
-                myCellGrid[row][col] = new MyCell(new VBox(), row, col); // Create a cell object for each cell
-            }
-        }
 
         // Initialize the cells
         int i = src[0], j = src[1];

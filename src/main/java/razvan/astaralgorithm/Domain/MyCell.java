@@ -2,6 +2,8 @@ package razvan.astaralgorithm.Domain;
 
 import javafx.scene.layout.VBox;
 
+import java.util.Random;
+
 public class MyCell {
     // GUI
 
@@ -25,7 +27,7 @@ public class MyCell {
         this.vbox = vbox;
         this.row = row;
         this.col = col;
-        this.isObstacle = false;
+        this.isObstacle = generateRandomBoolean();
 
         // A* algorithm
         this.parent_i = -1;
@@ -33,6 +35,11 @@ public class MyCell {
         this.f = Double.POSITIVE_INFINITY;
         this.g = Double.POSITIVE_INFINITY;
         this.h = Double.POSITIVE_INFINITY;
+    }
+
+    public boolean generateRandomBoolean() {
+        Random random = new Random();
+        return random.nextBoolean();
     }
 
     // Getters and setters

@@ -1,45 +1,43 @@
 package razvan.astaralgorithm;
 
 import razvan.astaralgorithm.Domain.Algorithm;
+import razvan.astaralgorithm.Domain.GridCreator;
+import razvan.astaralgorithm.Domain.MyCell;
+
+import java.util.Scanner;
 
 public class Main {
-    int[][] grid = {
-            {1, 1, 1, 0, 1, 0, 0, 1, 0, 0},
-            {0, 0, 0, 0, 1, 1, 1, 1, 1, 0},
-            {1, 1, 0, 0, 1, 0, 0, 0, 0, 1},
-            {0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
-            {1, 0, 1, 0, 0, 0, 1, 1, 1, 0},
-            {1, 1, 0, 1, 0, 0, 0, 1, 1, 1},
-            {1, 0, 0, 1, 0, 0, 0, 1, 1, 1},
-            {1, 1, 0, 0, 1, 1, 0, 1, 0, 0},
-            {1, 1, 1, 1, 1, 1, 0, 0, 0, 1},
-            {1, 1, 0, 1, 1, 0, 0, 1, 1, 0}
-    };
-
-    public void printGrid(){
-        for(int i = 0; i < grid.length; i++){
-            for(int j = 0; j < grid.length; j++){
-                System.out.print(grid[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
-
-    public int[][] getGrid() {
-        return grid;
-    }
 
     public static void main(String[] args) {
-        Main main = new Main();
-        main.printGrid();
+        Scanner scanner = new Scanner(System.in);
+
+        int row = 10;
+        int col = 10;
+        GridCreator gridCreator = new GridCreator(row, col);
+        MyCell[][] grid = gridCreator.getMyCellGrid();
+
+        Algorithm algorithm = new Algorithm(grid);
+        algorithm.printGrid(grid);
 
         // Source is the left-most bottom-most corner
-        int[] src = {4, 0};
+        int[] src = {0, 0};
+        System.out.println("Enter the source and destination coordinates");
+        System.out.println("Enter the source coordinates-->");
+        System.out.println("Enter the x coordinate-->");
+        src[0] = scanner.nextInt();
+        System.out.println("Enter the y coordinate-->");
+        src[1] = scanner.nextInt();
+
 
         // Destination is the left-most top-most corner
-        int[] dest = {9, 1};
+        int[] dest = {0, 0};
+        System.out.println("Enter the destination coordinates-->");
+        System.out.println("Enter the x coordinate-->");
+        dest[0] = scanner.nextInt();
+        System.out.println("Enter the y coordinate-->");
+        dest[1] = scanner.nextInt();
 
-        Algorithm algorithm = new Algorithm(main.getGrid());
+
 
         algorithm.aStarSearch(src, dest);
     }
