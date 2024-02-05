@@ -18,6 +18,7 @@ import razvan.astaralgorithm.HelperClasses.Creator;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class Test extends Application {
 
@@ -43,6 +44,7 @@ public class Test extends Application {
         MyCell[][] grid = Creator.getGrid();
 
         button.setOnMouseClicked(event -> {
+
             int[] start = {Integer.parseInt(startRow.getText()), Integer.parseInt(startCol.getText())};
             int[] end = {Integer.parseInt(endRow.getText()), Integer.parseInt(endCol.getText())};
 

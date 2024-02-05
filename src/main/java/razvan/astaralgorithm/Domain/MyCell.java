@@ -9,8 +9,8 @@ public class MyCell {
     private boolean isObstacle;
 
     // A* algorithm
-    private int parent_i, parent_j;
-    private double f, g, h;
+    int parent_i, parent_j;
+    double f, g, h;
 
     // Constructor
     public MyCell(VBox vbox, int row, int col) {
@@ -18,6 +18,20 @@ public class MyCell {
         this.row = row;
         this.col = col;
         this.isObstacle = false;
+    }
+
+    public MyCell(){}
+
+    public MyCell(VBox vbox, int row, int col, boolean isObstacle, int parent_i, int parent_j, double f, double g, double h) {
+        this.vbox = vbox;
+        this.row = row;
+        this.col = col;
+        this.isObstacle = isObstacle;
+        this.parent_i = parent_i;
+        this.parent_j = parent_j;
+        this.f = f;
+        this.g = g;
+        this.h = h;
     }
 
     // Getters and setters
