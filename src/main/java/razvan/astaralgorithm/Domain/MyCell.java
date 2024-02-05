@@ -4,20 +4,35 @@ import javafx.scene.layout.VBox;
 
 public class MyCell {
     // GUI
+
     private VBox vbox;
-    private int row, col;
+    // Position
+    private int row;
+    private int col;
+    // Obstacle
     private boolean isObstacle;
 
     // A* algorithm
-    private int parent_i, parent_j;
-    private double f, g, h;
+    private int parent_i;
+    private int parent_j;
+    private double f;
+    private double g;
+    private double h;
 
     // Constructor
     public MyCell(VBox vbox, int row, int col) {
+        // GUI
         this.vbox = vbox;
         this.row = row;
         this.col = col;
         this.isObstacle = false;
+
+        // A* algorithm
+        this.parent_i = -1;
+        this.parent_j = -1;
+        this.f = Double.POSITIVE_INFINITY;
+        this.g = Double.POSITIVE_INFINITY;
+        this.h = Double.POSITIVE_INFINITY;
     }
 
     // Getters and setters

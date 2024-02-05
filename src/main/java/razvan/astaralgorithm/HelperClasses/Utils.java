@@ -1,4 +1,4 @@
-package razvan.astaralgorithm.Domain;
+package razvan.astaralgorithm.HelperClasses;
 
 import javafx.application.Platform;
 import javafx.scene.paint.Color;

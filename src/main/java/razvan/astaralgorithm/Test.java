@@ -1,7 +1,6 @@
 package razvan.astaralgorithm;
 
 import javafx.application.Application;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -12,12 +11,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import razvan.astaralgorithm.Domain.Examples.Example;
+import razvan.astaralgorithm.Examples.Example;
 import razvan.astaralgorithm.Domain.MyCell;
 import razvan.astaralgorithm.HelperClasses.Creator;
 
 import java.util.List;
-import java.util.Map;
 
 public class Test extends Application {
 

@@ -3,14 +3,16 @@ package razvan.astaralgorithm.View;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import razvan.astaralgorithm.Domain.Utils;
+import razvan.astaralgorithm.HelperClasses.Utils;
+import razvan.astaralgorithm.Service.AlgorithmService;
 
 import java.util.List;
 
 public class Controller {
+    private AlgorithmService algorithmService;
+
     @FXML HBox hBox;
     @FXML
     Button button;

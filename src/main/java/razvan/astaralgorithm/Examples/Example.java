@@ -1,4 +1,4 @@
-package razvan.astaralgorithm.Domain.Examples;
+package razvan.astaralgorithm.Examples;
 
 import java.util.HashMap;
 import java.util.Map;

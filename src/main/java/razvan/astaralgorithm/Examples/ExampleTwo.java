@@ -1,4 +1,4 @@
-package razvan.astaralgorithm.Domain.Examples;
+package razvan.astaralgorithm.Examples;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
