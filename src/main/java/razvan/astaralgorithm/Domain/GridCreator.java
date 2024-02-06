@@ -37,13 +37,22 @@ public class GridCreator {
         this.myCellGrid = myCellGrid;
     }
 
-    private MyCell[][] createGrid(int ROW, int COL){
+    private MyCell[][] createGrid(int ROW, int COL) {
         MyCell[][] myCellGrid = new MyCell[ROW][COL];
-        for (int row = 0; row < ROW; row++) {
-            for (int col = 0; col < COL; col++) {
-                myCellGrid[row][col] = new MyCell(new VBox(), row, col); // Create a cell object for each cell
+        for (int row = 0; row < ROW ; row++) {
+            for (int col = 0 ; col < COL ; col++) {
+                myCellGrid[row][col] = new MyCell(row, col); // Create a cell object for each cell
             }
         }
         return myCellGrid;
+    }
+
+    public void printGrid(MyCell[][] grid){
+        for(int i = 0; i < grid.length; i++){
+            for(int j = 0; j < grid[i].length; j++){
+                System.out.print(grid[i][j].getRow() + " " + grid[i][j].getCol() + "->" + grid[i][j].isObstacle() + " | ");
+            }
+            System.out.println();
+        }
     }
 }

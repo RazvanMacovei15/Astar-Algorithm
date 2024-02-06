@@ -8,4 +8,8 @@ public class AlgorithmService {
     public AlgorithmService(Algorithm algorithm) {
         this.algorithm = algorithm;
     }
+
+    public Algorithm getAlgorithm() {
+        return algorithm;
+    }
 }

@@ -37,8 +37,6 @@ public class Main {
         System.out.println("Enter the y coordinate-->");
         dest[1] = scanner.nextInt();
 
-
-
         algorithm.aStarSearch(src, dest);
     }
 }

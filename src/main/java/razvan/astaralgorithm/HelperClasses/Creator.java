@@ -23,18 +23,18 @@ public class Creator {
         return intGrid;
     }
 
-    public static Pane createGridPane(int GRID_SIZE){
-        grid = new MyCell[GRID_SIZE][GRID_SIZE];
+    public static Pane createGridPane(int ROWS, int COLS){
+        grid = new MyCell[ROWS][COLS];
 
         Pane gridPane = new Pane();
         List<MyCell> cells = new ArrayList<>();
 
-        double cellWidth = 1000.0 / GRID_SIZE;
-        double cellHeight = 1000.0 / GRID_SIZE;
+        double cellWidth = 1000.0 / ROWS;
+        double cellHeight = 1000.0 / COLS;
 
-        for (int row = 0; row < GRID_SIZE; row++) {
-            for (int col = 0; col < GRID_SIZE; col++) {
-                MyCell newCell = new MyCell(new VBox(), row, col);
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLS; col++) {
+                MyCell newCell = new MyCell(row, col);
                 VBox vbox = newCell.getVbox();
                 vbox.setPrefSize(cellWidth, cellHeight);
                 vbox.setLayoutX(col * cellWidth);
@@ -93,7 +93,7 @@ public class Creator {
         }
     }
 
-    private static String toHex(Color color) {
+    public static String toHex(Color color) {
         return String.format("#%02X%02X%02X",
                 (int) (color.getRed() * 255),
                 (int) (color.getGreen() * 255),

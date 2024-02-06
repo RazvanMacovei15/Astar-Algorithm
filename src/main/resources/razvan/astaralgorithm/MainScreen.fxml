@@ -8,13 +8,19 @@
 
 <GridPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="razvan.astaralgorithm.View.Controller">
-    <HBox fx:id="hBox" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            fx:controller="razvan.astaralgorithm.View.AlgorithmController" gridLinesVisible="true">
+    <columnConstraints>
+        <ColumnConstraints minWidth="1000"/>
+        <ColumnConstraints minWidth="200"/>
+    </columnConstraints>
 
-    </HBox>
-    <Button text="Button"
-            fx:id="button"
-            onAction="#onButtonClicked"
-            GridPane.rowIndex="1"
-            GridPane.columnIndex="0"/>
+    <GridPane GridPane.rowIndex="0" GridPane.columnIndex="0" minWidth="1000" minHeight="1000">
+
+    </GridPane>
+    <VBox GridPane.rowIndex="0" GridPane.columnIndex="1">
+
+    </VBox>
+
+
+
 </GridPane>

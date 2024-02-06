@@ -4,7 +4,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.*;
 
-public class Algorithm implements Runnable{
+public class Algorithm implements Runnable {
     private boolean foundDest = false;
     private final int ROW = 10;
     private final int COL = 10;
@@ -12,8 +12,6 @@ public class Algorithm implements Runnable{
     private double hNew;
     private double fNew;
     private List<int[]> pathList = null;
-
-//    private int[][] intGrid;
 
     private MyCell[][] myCellGrid;
 
@@ -43,7 +41,7 @@ public class Algorithm implements Runnable{
 
     public List<int[]> tracePath(MyCell[][] myCellGrid, int[] dest) {
         System.out.println("The Path is ");
-        // Create a stack for backtracking
+
         int row = dest[0];
         int col = dest[1];
 
@@ -71,21 +69,26 @@ public class Algorithm implements Runnable{
             }
         }); // Print the path
         System.out.println();
+
         return pathList;
     }
 
+    private boolean ifDestination(int i, int j, int o, int r, MyCell[][] myCellGrid, int[] dest, String str) {
+        myCellGrid[o][r].setParent_i(i);
+        myCellGrid[o][r].setParent_j(j);
+        System.out.println("The destination cell is found");
+        tracePath(myCellGrid, dest);
+        foundDest = true;
+        System.out.println("The destination cell is found in the " + str + " successor");
+        return true;
+    }
+
     // 1st Successor (North)
-    public boolean firstSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest){
+    public boolean firstSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
         // 1st Successor (North)
         if (isValid(i - 1, j)) {
             if (isDestination(i - 1, j, dest)) {
-                myCellGrid[i - 1][j].setParent_i(i);
-                myCellGrid[i - 1][j].setParent_j(j);
-                System.out.println("The destination cell is found");
-                tracePath(myCellGrid, dest);
-                foundDest = true;
-                System.out.println("The destination cell is found in the first successor");
-                return true;
+                return ifDestination(i, j, i - j, j, myCellGrid, dest, "first");
             } else if (!closedList[i - 1][j] && isUnBlocked(myCellGrid, i - 1, j)) {
                 gNew = myCellGrid[i][j].getG() + 1;
                 hNew = calculateHValue(i - 1, j, dest);
@@ -106,17 +109,12 @@ public class Algorithm implements Runnable{
         }
         return false;
     }
+
     //2nd Successor (South)
-    public boolean secondSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest){
+    public boolean secondSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
         if (isValid(i + 1, j)) {
             if (isDestination(i + 1, j, dest)) {
-                myCellGrid[i + 1][j].setParent_i(i);
-                myCellGrid[i + 1][j].setParent_j(j);
-                System.out.println("The destination cell is found");
-                tracePath(myCellGrid, dest);
-                foundDest = true;
-                System.out.println("The destination cell is found in the second successor");
-                return true;
+                return ifDestination(i, j, i + 1, j, myCellGrid, dest, "second");
             } else if (!closedList[i + 1][j] && isUnBlocked(myCellGrid, i + 1, j)) {
                 gNew = myCellGrid[i][j].getG() + 1;
                 hNew = calculateHValue(i + 1, j, dest);
@@ -135,17 +133,12 @@ public class Algorithm implements Runnable{
         }
         return false;
     }
+
     //3rd Successor (East)
-    public boolean thirdSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest){
+    public boolean thirdSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
         if (isValid(i, j + 1)) {
             if (isDestination(i, j + 1, dest)) {
-                myCellGrid[i][j + 1].setParent_i(i);
-                myCellGrid[i][j + 1].setParent_j(j);
-                System.out.println("The destination cell is found");
-                tracePath(myCellGrid, dest);
-                foundDest = true;
-                System.out.println("The destination cell is found in the third successor");
-                return true;
+                return ifDestination(i, j, i, j + 1, myCellGrid, dest, "third");
             } else if (!closedList[i][j + 1] && isUnBlocked(myCellGrid, i, j + 1)) {
                 gNew = myCellGrid[i][j].getG() + 1;
                 hNew = calculateHValue(i, j + 1, dest);
@@ -164,18 +157,14 @@ public class Algorithm implements Runnable{
         }
         return false;
     }
+
     //4th Successor (West)
-    public boolean forthSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest){
+    public boolean forthSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
         if (isValid(i, j - 1)) {
             if (isDestination(i, j - 1, dest)) {
-                myCellGrid[i][j - 1].setParent_i(i);
-                myCellGrid[i][j - 1].setParent_j(j);
-                System.out.println("The destination cell is found");
-                tracePath(myCellGrid, dest);
-                foundDest = true;
-                System.out.println("The destination cell is found in the forth successor");
-                return true;
+                return ifDestination(i, j, i, j - 1, myCellGrid, dest, "forth");
             } else if (!closedList[i][j - 1] && isUnBlocked(myCellGrid, i, j - 1)) {
+
                 gNew = myCellGrid[i][j].getG() + 1;
                 hNew = calculateHValue(i, j - 1, dest);
                 fNew = gNew + hNew;
@@ -193,17 +182,12 @@ public class Algorithm implements Runnable{
         }
         return false;
     }
+
     //5th Successor (North-East)
-    public boolean fifthSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest){
+    public boolean fifthSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
         if (isValid(i - 1, j + 1)) {
             if (isDestination(i - 1, j + 1, dest)) {
-                myCellGrid[i - 1][j + 1].setParent_i(i);
-                myCellGrid[i - 1][j + 1].setParent_j(j);
-                System.out.println("The destination cell is found");
-                tracePath(myCellGrid, dest);
-                foundDest = true;
-                System.out.println("The destination cell is found in the fifth successor");
-                return true;
+                return ifDestination(i, j, i - 1, j + 1, myCellGrid, dest, "fifth");
             } else if (!closedList[i - 1][j + 1] && isUnBlocked(myCellGrid, i - 1, j + 1)) {
                 gNew = myCellGrid[i][j].getG() + 1.414;
                 hNew = calculateHValue(i - 1, j + 1, dest);
@@ -222,17 +206,12 @@ public class Algorithm implements Runnable{
         }
         return false;
     }
+
     //6th Successor (North-West)
-    public boolean sixthSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest){
+    public boolean sixthSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
         if (isValid(i - 1, j - 1)) {
             if (isDestination(i - 1, j - 1, dest)) {
-                myCellGrid[i - 1][j - 1].setParent_i(i);
-                myCellGrid[i - 1][j - 1].setParent_j(j);
-                System.out.println("The destination cell is found");
-                tracePath(myCellGrid, dest);
-                foundDest = true;
-                System.out.println("The destination cell is found in the sixth successor");
-                return true;
+                return ifDestination(i, j, i - 1, j - 1, myCellGrid, dest, "sixth");
             } else if (!closedList[i - 1][j - 1] && isUnBlocked(myCellGrid, i - 1, j - 1)) {
                 gNew = myCellGrid[i][j].getG() + 1.414;
                 hNew = calculateHValue(i - 1, j - 1, dest);
@@ -251,17 +230,12 @@ public class Algorithm implements Runnable{
         }
         return false;
     }
+
     //7th Successor (South-East)
-    public boolean seventhSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest){
+    public boolean seventhSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
         if (isValid(i + 1, j + 1)) {
             if (isDestination(i + 1, j + 1, dest)) {
-                myCellGrid[i + 1][j + 1].setParent_i(i);
-                myCellGrid[i + 1][j + 1].setParent_j(j);
-                System.out.println("The destination cell is found");
-                tracePath(myCellGrid, dest);
-                foundDest = true;
-                System.out.println("The destination cell is found in the seventh successor");
-                return true;
+                return ifDestination(i, j, i + 1, j + 1, myCellGrid, dest, "seventh");
             } else if (!closedList[i + 1][j + 1] && isUnBlocked(myCellGrid, i + 1, j + 1)) {
                 gNew = myCellGrid[i][j].getG() + 1.414;
                 hNew = calculateHValue(i + 1, j + 1, dest);
@@ -280,17 +254,12 @@ public class Algorithm implements Runnable{
         }
         return false;
     }
+
     //8th Successor (South-West)
-    public boolean eightSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest){
+    public boolean eightSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
         if (isValid(i + 1, j - 1)) {
             if (isDestination(i + 1, j - 1, dest)) {
-                myCellGrid[i + 1][j - 1].setParent_i(i);
-                myCellGrid[i + 1][j - 1].setParent_j(j);
-                System.out.println("The destination cell is found");
-                tracePath(myCellGrid, dest);
-                foundDest = true;
-                System.out.println("The destination cell is found in the eight successor");
-                return true;
+                return ifDestination(i, j, i + 1, j - 1, myCellGrid, dest, "eighth");
             } else if (!closedList[i + 1][j - 1] && isUnBlocked(myCellGrid, i + 1, j - 1)) {
                 gNew = myCellGrid[i][j].getG() + 1.414;
                 hNew = calculateHValue(i + 1, j - 1, dest);
@@ -310,10 +279,10 @@ public class Algorithm implements Runnable{
         return false;
     }
 
-    public void printGrid(MyCell[][] grid){
-        for(int i = 0; i < grid.length; i++){
-            for(int j = 0; j < grid.length; j++){
-                if(grid[i][j].isObstacle()){
+    public void printGrid(MyCell[][] grid) {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid.length; j++) {
+                if (grid[i][j].isObstacle()) {
                     System.out.print("1 ");
                 } else {
                     System.out.print("0 ");
@@ -322,6 +291,7 @@ public class Algorithm implements Runnable{
             System.out.println();
         }
     }
+
     public void aStarSearch(int[] src, int[] dest) {
 
         System.out.println("Source: (" + src[0] + ", " + src[1] + ")");
@@ -369,21 +339,21 @@ public class Algorithm implements Runnable{
             closedList[i][j] = true;
 
             // 1st Successor (North)
-            if(firstSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
+            if (firstSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
             // 2nd Successor (South)
-            if(secondSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
+            if (secondSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
             // 3rd Successor (East)
-            if(thirdSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
+            if (thirdSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
             // 4th Successor (West)
-            if(forthSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
+            if (forthSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
             // 5th Successor (North-East)
-            if(fifthSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
+            if (fifthSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
             // 6th Successor (North-West)
-            if(sixthSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
+            if (sixthSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
             // 7th Successor (South-East)
-            if(seventhSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
+            if (seventhSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
             // 8th Successor (South-West)
-            if(eightSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
+            if (eightSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
         }
         if (!foundDest) {
             System.out.println("Failed to find the destination cell");
@@ -391,9 +361,8 @@ public class Algorithm implements Runnable{
 
     }
 
-
     @Override
     public void run() {
-        aStarSearch(new int[]{4, 0}, new int[]{9, 1});
+        aStarSearch(new int[]{0, 0}, new int[]{9, 9});
     }
 }

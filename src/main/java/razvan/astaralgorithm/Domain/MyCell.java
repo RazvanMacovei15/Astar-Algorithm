@@ -1,6 +1,8 @@
 package razvan.astaralgorithm.Domain;
 
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import razvan.astaralgorithm.HelperClasses.Creator;
 
 import java.util.Random;
 
@@ -22,12 +24,13 @@ public class MyCell {
     private double h;
 
     // Constructor
-    public MyCell(VBox vbox, int row, int col) {
+    public MyCell(int row, int col) {
         // GUI
-        this.vbox = vbox;
+        this.isObstacle = generateRandomBoolean();
+        this.vbox = createVbox();
+
         this.row = row;
         this.col = col;
-        this.isObstacle = generateRandomBoolean();
 
         // A* algorithm
         this.parent_i = -1;
@@ -40,6 +43,17 @@ public class MyCell {
     public boolean generateRandomBoolean() {
         Random random = new Random();
         return random.nextBoolean();
+    }
+
+    private VBox createVbox(){
+        VBox vbox = new VBox();
+        if(!isObstacle()){
+            vbox.setStyle("-fx-background-color: " + Creator.toHex(Color.DARKGREEN) + ";");
+        }
+        else{
+            vbox.setStyle("-fx-background-color: " + Creator.toHex(Color.LIGHTBLUE) + ";");
+        }
+        return vbox;
     }
 
     // Getters and setters
@@ -113,5 +127,14 @@ public class MyCell {
 
     public void setH(double h) {
         this.h = h;
+    }
+
+    @Override
+    public String toString() {
+        return "MyCell{" +
+                "row=" + row +
+                ", col=" + col +
+                ", isObstacle=" + isObstacle +
+                '}';
     }
 }
