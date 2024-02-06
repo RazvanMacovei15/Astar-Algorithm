@@ -23,7 +23,4 @@
         <Label text="SELECT DESTINATION!" fx:id="endLabel" visible="false" minWidth="200" style="--body-font-size: 15"/>
         <Button text="TEST" fx:id="testButton" onAction="#onTestButton" visible="false" minWidth="200" minHeight="100"/>
     </VBox>
-
-
-
 </GridPane>
