@@ -14,7 +14,7 @@
         <ColumnConstraints minWidth="200"/>
     </columnConstraints>
 
-    <GridPane GridPane.rowIndex="0" GridPane.columnIndex="0" minWidth="1000" minHeight="1000">
+    <GridPane GridPane.rowIndex="0" GridPane.columnIndex="0" minWidth="1000" minHeight="1000" fx:id="gridPane">
 
     </GridPane>
     <VBox GridPane.rowIndex="0" GridPane.columnIndex="1">

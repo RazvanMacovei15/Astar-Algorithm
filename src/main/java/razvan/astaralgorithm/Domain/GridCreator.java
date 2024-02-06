@@ -1,49 +1,71 @@
 package razvan.astaralgorithm.Domain;
 
+import javafx.application.Platform;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class GridCreator {
-    private int ROW;
-    private int COL;
-    private MyCell[][] myCellGrid;
+    private int ROWS;
+    private int COLS;
+    private GridPane gridPane;
+
+    public GridPane getGridPane() {
+        return gridPane;
+    }
+
+    public void setGridPane(GridPane gridPane) {
+        this.gridPane = gridPane;
+    }
+
+    public GridCreator(int ROW, int COL, GridPane gridPane) {
+        this.ROWS = ROW;
+        this.COLS = COL;
+        this.gridPane = gridPane;
+    }
 
     public GridCreator(int ROW, int COL) {
-        this.ROW = ROW;
-        this.COL = COL;
-        this.myCellGrid = createGrid(ROW, COL);
+        this.ROWS = ROW;
+        this.COLS = COL;
     }
 
-    public int getROW() {
-        return ROW;
+    public int getROWS() {
+        return ROWS;
     }
 
-    public void setROW(int ROW) {
-        this.ROW = ROW;
+    public void setROWS(int ROWS) {
+        this.ROWS = ROWS;
     }
 
-    public int getCOL() {
-        return COL;
+    public int getCOLS() {
+        return COLS;
     }
 
-    public void setCOL(int COL) {
-        this.COL = COL;
+    public void setCOLS(int COLS) {
+        this.COLS = COLS;
     }
 
-    public MyCell[][] getMyCellGrid() {
-        return myCellGrid;
-    }
 
-    public void setMyCellGrid(MyCell[][] myCellGrid) {
-        this.myCellGrid = myCellGrid;
-    }
+    public MyCell[][] createGrid() {
+        GridPane gridPane = new GridPane();
 
-    private MyCell[][] createGrid(int ROW, int COL) {
-        MyCell[][] myCellGrid = new MyCell[ROW][COL];
-        for (int row = 0; row < ROW ; row++) {
-            for (int col = 0 ; col < COL ; col++) {
-                myCellGrid[row][col] = new MyCell(row, col); // Create a cell object for each cell
+        double cellWidth = 1000.0 / ROWS;
+        double cellHeight = 1000.0 / COLS;
+
+        MyCell[][] myCellGrid = new MyCell[ROWS][COLS];
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLS; col++) {
+                myCellGrid[row][col] = new MyCell(row, col);
+
+                VBox vbox =  myCellGrid[row][col].getVbox();
+                vbox.setPrefSize(cellWidth, cellHeight);
+                vbox.setLayoutX(col * cellWidth);
+                vbox.setLayoutY(row * cellHeight);
+
             }
         }
+
+        setGridPane(gridPane);
+
         return myCellGrid;
     }
 

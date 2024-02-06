@@ -1,5 +1,6 @@
 package razvan.astaralgorithm.Domain;
 
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import java.util.*;
@@ -72,7 +73,6 @@ public class Algorithm implements Runnable {
 
         return pathList;
     }
-
     private boolean ifDestination(int i, int j, int o, int r, MyCell[][] myCellGrid, int[] dest, String str) {
         myCellGrid[o][r].setParent_i(i);
         myCellGrid[o][r].setParent_j(j);
@@ -82,7 +82,6 @@ public class Algorithm implements Runnable {
         System.out.println("The destination cell is found in the " + str + " successor");
         return true;
     }
-
     // 1st Successor (North)
     public boolean firstSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
         // 1st Successor (North)
@@ -109,7 +108,6 @@ public class Algorithm implements Runnable {
         }
         return false;
     }
-
     //2nd Successor (South)
     public boolean secondSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
         if (isValid(i + 1, j)) {
@@ -133,7 +131,6 @@ public class Algorithm implements Runnable {
         }
         return false;
     }
-
     //3rd Successor (East)
     public boolean thirdSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
         if (isValid(i, j + 1)) {
@@ -157,7 +154,6 @@ public class Algorithm implements Runnable {
         }
         return false;
     }
-
     //4th Successor (West)
     public boolean forthSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
         if (isValid(i, j - 1)) {
@@ -182,7 +178,6 @@ public class Algorithm implements Runnable {
         }
         return false;
     }
-
     //5th Successor (North-East)
     public boolean fifthSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
         if (isValid(i - 1, j + 1)) {
@@ -206,7 +201,6 @@ public class Algorithm implements Runnable {
         }
         return false;
     }
-
     //6th Successor (North-West)
     public boolean sixthSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
         if (isValid(i - 1, j - 1)) {
@@ -230,7 +224,6 @@ public class Algorithm implements Runnable {
         }
         return false;
     }
-
     //7th Successor (South-East)
     public boolean seventhSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
         if (isValid(i + 1, j + 1)) {
@@ -254,7 +247,6 @@ public class Algorithm implements Runnable {
         }
         return false;
     }
-
     //8th Successor (South-West)
     public boolean eightSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
         if (isValid(i + 1, j - 1)) {
@@ -365,4 +357,5 @@ public class Algorithm implements Runnable {
     public void run() {
         aStarSearch(new int[]{0, 0}, new int[]{9, 9});
     }
+
 }

@@ -1,5 +1,7 @@
 package razvan.astaralgorithm.View;
 
+import javafx.fxml.FXML;
+import javafx.scene.layout.GridPane;
 import razvan.astaralgorithm.Domain.GridCreator;
 import razvan.astaralgorithm.Domain.MyCell;
 import razvan.astaralgorithm.Service.AlgorithmService;
@@ -7,8 +9,19 @@ import razvan.astaralgorithm.Service.AlgorithmService;
 import java.util.List;
 
 public class AlgorithmController {
+    @FXML
+    GridPane gridPane;
+
+    public GridPane getGridPane() {
+        return gridPane;
+    }
+
+    public void setGridPane(GridPane gridPane) {
+        this.gridPane = gridPane;
+    }
+
     private AlgorithmService algorithmService;
-    
+
     public void drawPath(List<int[]> path, MyCell[][] grid){
         new Thread(()->{
             for(int[] cell : path){
@@ -27,6 +40,10 @@ public class AlgorithmController {
                 }
             }
         }).start();
+    }
+
+    public void drawGrid(GridPane gridPane){
+        algorithmService.drawGrid(gridPane);
     }
 
     public void setService(AlgorithmService service) {

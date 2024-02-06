@@ -14,7 +14,7 @@ public class Main {
         int row = 10;
         int col = 10;
         GridCreator gridCreator = new GridCreator(row, col);
-        MyCell[][] grid = gridCreator.getMyCellGrid();
+        MyCell[][] grid = gridCreator.createGrid();
 
         Algorithm algorithm = new Algorithm(grid);
         algorithm.printGrid(grid);

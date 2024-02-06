@@ -6,9 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import razvan.astaralgorithm.APP;
-import razvan.astaralgorithm.Domain.Algorithm;
 import razvan.astaralgorithm.Domain.GridCreator;
 import razvan.astaralgorithm.Domain.MyCell;
 import razvan.astaralgorithm.Service.AlgorithmService;
@@ -25,6 +25,10 @@ public class ParametersController {
 
     private AlgorithmController algorithmController;
 
+    public AlgorithmController getAlgorithmController() {
+        return algorithmController;
+    }
+
     public void setAlgorithmController(AlgorithmController algorithmController) {
         this.algorithmController = algorithmController;
     }
@@ -32,23 +36,31 @@ public class ParametersController {
     public void startButtonAction() {
         int rows = Integer.parseInt(rowsTextField.getText());
         int columns = Integer.parseInt(columnsTextField.getText());
-        GridCreator gridCreator = new GridCreator(rows, columns);
-        MyCell[][] grid = gridCreator.getMyCellGrid();
-        gridCreator.printGrid(grid);
-        Algorithm algorithm = new Algorithm(grid);
-        AlgorithmService algorithmService = new AlgorithmService(algorithm);
 
-        loadAlgorithmScene(algorithmService);
+        GridCreator gridCreator = new GridCreator(rows, columns);
+        MyCell[][] grid = gridCreator.createGrid();
+        GridPane pane = gridCreator.getGridPane();
+        gridCreator.printGrid(grid);
+
+        AlgorithmService algorithmService = new AlgorithmService(grid);
+        algorithmService.setGridPane(pane);
+        loadGridScene(algorithmService);
     }
 
-    private void loadAlgorithmScene(AlgorithmService service) {
+    private void loadGridScene(AlgorithmService service) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/razvan/astaralgorithm/MainScreen.fxml"));
             Parent root = loader.load();
             Stage primaryStage = APP.getPrimaryStage();
 
             AlgorithmController algorithmController = loader.getController();
+            GridPane grid = service.getGridPane();
+
+            GridPane gp = algorithmController.getGridPane();
+            gp.add(grid, 0, 0);
+
             algorithmController.setService(service);
+
 
             Scene algorithmScene = new Scene(root, 1200, 1000);
             primaryStage.setScene(algorithmScene);
