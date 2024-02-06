@@ -45,6 +45,7 @@ public class ParametersController {
 
         AlgorithmService algorithmService = new AlgorithmService(grid);
         algorithmService.setGridPane(pane);
+
         loadGridScene(algorithmService);
     }
 
@@ -58,6 +59,7 @@ public class ParametersController {
             GridPane grid = service.getGridPane();
 
             GridPane gp = algorithmController.getGridPane();
+            grid.gridLinesVisibleProperty().setValue(true);
             gp.add(grid, 0, 0);
 
             algorithmController.setService(service);

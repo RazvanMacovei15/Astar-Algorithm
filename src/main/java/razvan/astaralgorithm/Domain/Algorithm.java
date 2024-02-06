@@ -5,7 +5,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.*;
 
-public class Algorithm implements Runnable {
+public class Algorithm{
     private boolean foundDest = false;
     private final int ROW = 10;
     private final int COL = 10;
@@ -351,11 +351,6 @@ public class Algorithm implements Runnable {
             System.out.println("Failed to find the destination cell");
         }
 
-    }
-
-    @Override
-    public void run() {
-        aStarSearch(new int[]{0, 0}, new int[]{9, 9});
     }
 
 }

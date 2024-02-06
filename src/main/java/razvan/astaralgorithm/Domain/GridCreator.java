@@ -9,47 +9,17 @@ public class GridCreator {
     private int COLS;
     private GridPane gridPane;
 
-    public GridPane getGridPane() {
-        return gridPane;
-    }
-
-    public void setGridPane(GridPane gridPane) {
-        this.gridPane = gridPane;
-    }
-
-    public GridCreator(int ROW, int COL, GridPane gridPane) {
-        this.ROWS = ROW;
-        this.COLS = COL;
-        this.gridPane = gridPane;
-    }
-
-    public GridCreator(int ROW, int COL) {
-        this.ROWS = ROW;
-        this.COLS = COL;
-    }
-
-    public int getROWS() {
-        return ROWS;
-    }
-
-    public void setROWS(int ROWS) {
+    public GridCreator(int ROWS, int COLS) {
         this.ROWS = ROWS;
-    }
-
-    public int getCOLS() {
-        return COLS;
-    }
-
-    public void setCOLS(int COLS) {
         this.COLS = COLS;
     }
-
-
     public MyCell[][] createGrid() {
         GridPane gridPane = new GridPane();
 
         double cellWidth = 1000.0 / ROWS;
+        System.out.println(cellWidth);
         double cellHeight = 1000.0 / COLS;
+        System.out.println(cellHeight);
 
         MyCell[][] myCellGrid = new MyCell[ROWS][COLS];
         for (int row = 0; row < ROWS; row++) {
@@ -57,10 +27,11 @@ public class GridCreator {
                 myCellGrid[row][col] = new MyCell(row, col);
 
                 VBox vbox = myCellGrid[row][col].getVbox();
-                vbox.setPrefSize(cellWidth, cellHeight);
+                vbox.setMinSize(cellHeight, cellWidth);
                 vbox.setLayoutX(col * cellWidth);
                 vbox.setLayoutY(row * cellHeight);
 
+                gridPane.add(vbox, col, row);
             }
         }
 
@@ -77,5 +48,30 @@ public class GridCreator {
             }
             System.out.println();
         }
+    }
+
+    public GridPane getGridPane() {
+        return gridPane;
+    }
+
+    public void setGridPane(GridPane gridPane) {
+        this.gridPane = gridPane;
+    }
+
+
+    public int getROWS() {
+        return ROWS;
+    }
+
+    public void setROWS(int ROWS) {
+        this.ROWS = ROWS;
+    }
+
+    public int getCOLS() {
+        return COLS;
+    }
+
+    public void setCOLS(int COLS) {
+        this.COLS = COLS;
     }
 }
