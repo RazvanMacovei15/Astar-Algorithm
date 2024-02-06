@@ -23,9 +23,7 @@ public class AlgorithmController {
     @FXML
     private Label endLabel;
     private AlgorithmService algorithmService;
-
     private MyCell[][] grid;
-
     int[] src = {-1,-1};
     int[] dest = {-1,-1};
     private ListForSrcAndDest listForSrcAndDest;
@@ -50,20 +48,17 @@ public class AlgorithmController {
                             startLabel.setText("SOURCE: " + coordinates[0] + " " + coordinates[1]);
                             endLabel.setVisible(true);
                             listForSrcAndDest.add(coordinates);
-                            listForSrcAndDest.print();
                         } else if (listForSrcAndDest.getElemAtIndex(1)[0] == -1 && listForSrcAndDest.getElemAtIndex(1)[1] == -1){
                             startLabel.setText("SOURCE: " + listForSrcAndDest.getElemAtIndex(0)[0] + " " + listForSrcAndDest.getElemAtIndex(0)[1]);
                             endLabel.setText("DESTINATION: " + cell.getRow() + " " + cell.getCol());
                             int[] coordinates = {cell.getRow(), cell.getCol()};
                             listForSrcAndDest.add(coordinates);
-                            listForSrcAndDest.print();
                         }
                     }else{
                         endLabel.setText("SELECT DESTINATION");
                         startLabel.setText("SOURCE: " + cell.getRow() + " " + cell.getCol());
                         int[] coordinates = {cell.getRow(), cell.getCol()};
                         listForSrcAndDest.add(coordinates);
-                        listForSrcAndDest.print();
                     }
                 });
             }
@@ -79,6 +74,7 @@ public class AlgorithmController {
 
         new Thread(()->{
             algorithm.aStarSearch(src, dest);
+
             drawPath(algorithm.tracePath(algorithmService.getGrid(), dest), algorithmService.getGrid());
         }).start();
     }
