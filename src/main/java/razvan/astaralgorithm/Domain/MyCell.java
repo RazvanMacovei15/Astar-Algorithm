@@ -28,7 +28,7 @@ public class MyCell {
     public MyCell(int row, int col) {
         // GUI
         this.isObstacle = generateRandomBoolean();
-        this.vbox = createVbox();
+        this.vbox = createVboxProperties();
 
         this.row = row;
         this.col = col;
@@ -41,13 +41,18 @@ public class MyCell {
         this.h = Double.POSITIVE_INFINITY;
     }
 
+    public int[] getClickedCoordinates() {
+        return new int[]{row, col};
+    }
+
     public boolean generateRandomBoolean() {
         Random random = new Random();
         return random.nextBoolean();
     }
 
-    private VBox createVbox(){
+    private VBox createVboxProperties(){
         VBox vbox = new VBox();
+
         if(isObstacle()){
             vbox.setStyle("-fx-background-color: " + Creator.toHex(Color.DARKGREEN) + ";");
         }
@@ -55,11 +60,6 @@ public class MyCell {
             vbox.setStyle("-fx-background-color: " + Creator.toHex(Color.LIGHTBLUE) + ";");
         }
 
-        Platform.runLater(()->{
-            vbox.setOnMouseClicked(e -> {
-                System.out.println("Clicked on cell: " + getRow() + " " + getCol());
-            });
-        });
 
         return vbox;
     }

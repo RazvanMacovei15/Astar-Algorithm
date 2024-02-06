@@ -2,10 +2,10 @@ package razvan.astaralgorithm.View;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import razvan.astaralgorithm.Domain.Algorithm;
-import razvan.astaralgorithm.Domain.GridCreator;
+import razvan.astaralgorithm.Domain.ListForSrcAndDest;
 import razvan.astaralgorithm.Domain.MyCell;
 import razvan.astaralgorithm.Service.AlgorithmService;
 
@@ -17,23 +17,70 @@ public class AlgorithmController {
     @FXML
     private Button testButton;
     @FXML
-    private TextField start;
+    private Button startButton;
     @FXML
-    private TextField end;
+    private Label startLabel;
+    @FXML
+    private Label endLabel;
     private AlgorithmService algorithmService;
 
+    private MyCell[][] grid;
+
+    int[] src = {-1,-1};
+    int[] dest = {-1,-1};
+    private ListForSrcAndDest listForSrcAndDest;
+
+    public void onStartButton() {
+        listForSrcAndDest = new ListForSrcAndDest();
+        startButton.setVisible(false);
+        startLabel.setVisible(true);
+        testButton.setVisible(true);
+        stats();
+    }
+
+    public void stats(){
+        grid = algorithmService.getGrid();
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                MyCell cell = grid[i][j];
+                cell.getVbox().setOnMouseClicked(e -> {
+                    if(!listForSrcAndDest.isFull()){
+                        if(listForSrcAndDest.getElemAtIndex(0)[0] == -1 && listForSrcAndDest.getElemAtIndex(0)[1] == -1){
+                            int[] coordinates = {cell.getRow(), cell.getCol()};
+                            startLabel.setText("SOURCE: " + coordinates[0] + " " + coordinates[1]);
+                            endLabel.setVisible(true);
+                            listForSrcAndDest.add(coordinates);
+                            listForSrcAndDest.print();
+                        } else if (listForSrcAndDest.getElemAtIndex(1)[0] == -1 && listForSrcAndDest.getElemAtIndex(1)[1] == -1){
+                            startLabel.setText("SOURCE: " + listForSrcAndDest.getElemAtIndex(0)[0] + " " + listForSrcAndDest.getElemAtIndex(0)[1]);
+                            endLabel.setText("DESTINATION: " + cell.getRow() + " " + cell.getCol());
+                            int[] coordinates = {cell.getRow(), cell.getCol()};
+                            listForSrcAndDest.add(coordinates);
+                            listForSrcAndDest.print();
+                        }
+                    }else{
+                        endLabel.setText("SELECT DESTINATION");
+                        startLabel.setText("SOURCE: " + cell.getRow() + " " + cell.getCol());
+                        int[] coordinates = {cell.getRow(), cell.getCol()};
+                        listForSrcAndDest.add(coordinates);
+                        listForSrcAndDest.print();
+                    }
+                });
+            }
+        }
+    }
+
     public void onTestButton() {
+
         Algorithm algorithm = new Algorithm(algorithmService.getGrid());
-        String[] s = start.getText().trim().split(",");
-        String[] e = end.getText().trim().split(",");
-        int[] src = {Integer.parseInt(s[0]), Integer.parseInt(s[1])};
-        int[] dest = {Integer.parseInt(e[0]), Integer.parseInt(e[1])};
+
+        src = listForSrcAndDest.getElemAtIndex(0);
+        dest = listForSrcAndDest.getElemAtIndex(1);
+
         new Thread(()->{
             algorithm.aStarSearch(src, dest);
             drawPath(algorithm.tracePath(algorithmService.getGrid(), dest), algorithmService.getGrid());
         }).start();
-//        algorithm.aStarSearch(src, dest);
-//        drawPath(algorithm.tracePath(algorithmService.getGrid(), dest), algorithmService.getGrid());
     }
 
     public void drawPath(List<int[]> path, MyCell[][] grid) {
@@ -41,23 +88,19 @@ public class AlgorithmController {
             for (int[] cell : path) {
                 //iterate through MyCell[][] grid and find the cell with the same row and col as the cell in path
                 for (int i = 0; i < grid.length; i++) {
-                    for (int j = 0; j < grid.length; j++) {
+                    for (int j = 0; j < grid[i].length; j++) {
                         if (grid[i][j].getRow() == cell[0] && grid[i][j].getCol() == cell[1]) {
                             grid[i][j].getVbox().setStyle("-fx-background-color: #00ff00");
                         }
                     }
                 }
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
-    }
-
-    public void drawGrid(GridPane gridPane) {
-        algorithmService.drawGrid(gridPane);
     }
 
     public void setService(AlgorithmService service) {

@@ -94,7 +94,6 @@ public class Algorithm {
     public boolean firstSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
         // 1st Successor (North)
         if (isValid(i - 1, j)) {
-            highlightSearchedCell(i, j, myCellGrid);// Highlight the cell
             Background retrievedBackground = myCellGrid[i - 1][j].getVbox().getBackground();// Get the background color
             highlightSearch(i - 1, j, myCellGrid, retrievedBackground);// Highlight the cell
             if (isDestination(i - 1, j, dest)) {
@@ -361,6 +360,8 @@ public class Algorithm {
             i = p.getValue()[0];
             j = p.getValue()[1];
             closedList[i][j] = true;
+
+            highlightSearchedCell(i, j, myCellGrid);// Highlight the cell
 
             // 1st Successor (North)
             if (firstSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;

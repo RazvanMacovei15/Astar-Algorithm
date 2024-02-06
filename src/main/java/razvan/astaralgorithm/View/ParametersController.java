@@ -1,5 +1,6 @@
 package razvan.astaralgorithm.View;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import razvan.astaralgorithm.APP;
 import razvan.astaralgorithm.Domain.GridCreator;
@@ -63,7 +65,6 @@ public class ParametersController {
             gp.add(grid, 0, 0);
 
             algorithmController.setService(service);
-
 
             Scene algorithmScene = new Scene(root, 1200, 1000);
             primaryStage.setScene(algorithmScene);
