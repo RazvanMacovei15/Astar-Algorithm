@@ -10,7 +10,7 @@ import java.util.List;
 
 public class AlgorithmController {
     @FXML
-    GridPane gridPane;
+    private GridPane gridPane;
 
     public GridPane getGridPane() {
         return gridPane;

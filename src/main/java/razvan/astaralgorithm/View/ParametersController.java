@@ -40,6 +40,7 @@ public class ParametersController {
         GridCreator gridCreator = new GridCreator(rows, columns);
         MyCell[][] grid = gridCreator.createGrid();
         GridPane pane = gridCreator.getGridPane();
+
         gridCreator.printGrid(grid);
 
         AlgorithmService algorithmService = new AlgorithmService(grid);
