@@ -18,7 +18,9 @@
 
     </GridPane>
     <VBox GridPane.rowIndex="0" GridPane.columnIndex="1">
-
+        <TextField fx:id="start" promptText="START"/>
+        <TextField fx:id="end" promptText="END"/>
+        <Button text="TEST" fx:id="testButton" onAction="#onTestButton"/>
     </VBox>
 
 

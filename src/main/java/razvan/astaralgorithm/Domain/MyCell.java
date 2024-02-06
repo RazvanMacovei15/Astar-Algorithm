@@ -1,5 +1,6 @@
 package razvan.astaralgorithm.Domain;
 
+import javafx.application.Platform;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import razvan.astaralgorithm.HelperClasses.Creator;
@@ -47,12 +48,19 @@ public class MyCell {
 
     private VBox createVbox(){
         VBox vbox = new VBox();
-        if(!isObstacle()){
+        if(isObstacle()){
             vbox.setStyle("-fx-background-color: " + Creator.toHex(Color.DARKGREEN) + ";");
         }
         else{
             vbox.setStyle("-fx-background-color: " + Creator.toHex(Color.LIGHTBLUE) + ";");
         }
+
+        Platform.runLater(()->{
+            vbox.setOnMouseClicked(e -> {
+                System.out.println("Clicked on cell: " + getRow() + " " + getCol());
+            });
+        });
+
         return vbox;
     }
 
