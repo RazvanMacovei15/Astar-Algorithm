@@ -13,21 +13,34 @@
         <ColumnConstraints minWidth="1000"/>
         <ColumnConstraints minWidth="200"/>
     </columnConstraints>
-
-    <GridPane GridPane.rowIndex="0" GridPane.columnIndex="0" minWidth="1000" minHeight="1000" fx:id="gridPane"
+    <GridPane GridPane.rowIndex="0"
+              GridPane.columnIndex="0"
+              minWidth="1000"
+              minHeight="1000"
+              fx:id="gridPane"
               GridPane.rowSpan="2">
-
     </GridPane>
-    <GridPane GridPane.rowIndex="0" GridPane.columnIndex="1" >
+    <GridPane GridPane.rowIndex="0"
+              GridPane.columnIndex="1">
         <rowConstraints>
             <RowConstraints percentHeight="50"/>
             <RowConstraints percentHeight="50"/>
         </rowConstraints>
         <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" minHeight="500">
-            <Button text="START" fx:id="startButton" onAction="#onStartButton" minWidth="200" minHeight="100"/>
-            <Label text="SELECT SOURCE!" fx:id="startLabel" visible="false" minWidth="200"
+            <Button text="START"
+                    fx:id="startButton"
+                    onAction="#onStartButton"
+                    minWidth="200"
+                    minHeight="100"/>
+            <Label text="SELECT SOURCE!"
+                   fx:id="startLabel"
+                   visible="false"
+                   minWidth="200"
                    style="--body-font-size: 15"/>
-            <Label text="SELECT DESTINATION!" fx:id="endLabel" visible="false" minWidth="200"
+            <Label text="SELECT DESTINATION!"
+                   fx:id="endLabel"
+                   visible="false"
+                   minWidth="200"
                    style="--body-font-size: 15"/>
             <Button text="FIND PATH"
                     fx:id="testButton"
@@ -36,15 +49,20 @@
                     minWidth="200"
                     minHeight="50"/>
         </VBox>
-        <GridPane GridPane.rowIndex="1" GridPane.columnIndex="0" minHeight="500">
+        <GridPane GridPane.rowIndex="1" GridPane.columnIndex="0" minHeight="500" alignment="CENTER">
             <rowConstraints>
                 <RowConstraints percentHeight="20"/>
                 <RowConstraints percentHeight="80"/>
             </rowConstraints>
-
             <VBox GridPane.columnIndex="0" GridPane.rowIndex="0">
-                <TextField promptText="ROWS" fx:id="rowsField" visible="false" minWidth="200"/>
-                <TextField promptText="COLUMNS" fx:id="columnsField" visible="false" minWidth="200"/>
+                <TextField promptText="ROWS"
+                           fx:id="rowsField"
+                           visible="false"
+                           minWidth="200"/>
+                <TextField promptText="COLUMNS"
+                           fx:id="columnsField"
+                           visible="false"
+                           minWidth="200"/>
                 <Button text="RESET"
                         onAction="#onResetButton"
                         fx:id="resetButton"
@@ -52,13 +70,14 @@
                         minWidth="200"
                         minHeight="50"/>
             </VBox>
-            <BorderPane>
+            <BorderPane GridPane.columnIndex="0" GridPane.rowIndex="1" minWidth="200">
                 <bottom>
-                    <Label fx:id="warning" text="WARNINGS LABEL!" visible="false"/>
+                    <Label fx:id="warning"
+                           text="WARNINGS LABEL!"
+                           visible="false"
+                           style=" --body-font-size: 20; -fx-text-fill: RED"/>
                 </bottom>
             </BorderPane>
         </GridPane>
     </GridPane>
-
-
 </GridPane>

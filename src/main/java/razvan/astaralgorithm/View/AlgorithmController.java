@@ -58,6 +58,7 @@ public class AlgorithmController {
         startLabel.setVisible(false);
         endLabel.setVisible(false);
         testButton.setVisible(false);
+        warning.setVisible(false);
 
         algorithmService = this.getAlgorithmService();
         gridPane = algorithmService.getGridPane();
@@ -118,6 +119,19 @@ public class AlgorithmController {
 
         src = listForSrcAndDest.getElemAtIndex(0);
         dest = listForSrcAndDest.getElemAtIndex(1);
+
+        if(listForSrcAndDest.getElemAtIndex(0)[0] == -1 && listForSrcAndDest.getElemAtIndex(0)[1] == -1){
+            warning.setVisible(true);
+            warning.setText("Please select a source!");
+            return;
+        }
+        if(listForSrcAndDest.getElemAtIndex(1)[0] == -1 && listForSrcAndDest.getElemAtIndex(1)[1] == -1){
+            warning.setVisible(true);
+            warning.setText("Please select a destination!");
+            return;
+        }
+
+
 
         new Thread(()->{
             algorithm.aStarSearch(src, dest);
