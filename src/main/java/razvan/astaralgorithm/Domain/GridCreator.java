@@ -17,9 +17,9 @@ public class GridCreator {
         GridPane gridPane = new GridPane();
 
         double cellWidth = 1000.0 / ROWS;
-        System.out.println(cellWidth);
+
         double cellHeight = 1000.0 / COLS;
-        System.out.println(cellHeight);
+
 
         MyCell[][] myCellGrid = new MyCell[ROWS][COLS];
         for (int row = 0; row < ROWS; row++) {

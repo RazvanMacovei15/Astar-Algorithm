@@ -44,7 +44,7 @@
                    style="--body-font-size: 15"/>
             <Button text="FIND PATH"
                     fx:id="testButton"
-                    onAction="#onTestButton"
+                    onAction="#onFindPathButton"
                     visible="false"
                     minWidth="200"
                     minHeight="50"/>

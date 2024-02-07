@@ -1,9 +1,10 @@
 package razvan.astaralgorithm.Domain;
 
-import javafx.application.Platform;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import razvan.astaralgorithm.HelperClasses.Creator;
+import razvan.astaralgorithm.HelperClasses.ColorChanger;
 
 import java.util.Random;
 
@@ -11,6 +12,7 @@ public class MyCell {
     // GUI
 
     private VBox vbox;
+    private Label label;
     // Position
     private int row;
     private int col;
@@ -29,6 +31,7 @@ public class MyCell {
         // GUI
         this.isObstacle = generateRandomBoolean();
         this.vbox = createVboxProperties();
+
 
         this.row = row;
         this.col = col;
@@ -52,15 +55,16 @@ public class MyCell {
 
     private VBox createVboxProperties(){
         VBox vbox = new VBox();
-
         if(isObstacle()){
-            vbox.setStyle("-fx-background-color: " + Creator.toHex(Color.DARKGREEN) + ";");
+            vbox.setStyle("-fx-background-color: " + ColorChanger.toHex(Color.DARKGREEN) + ";");
         }
         else{
-            vbox.setStyle("-fx-background-color: " + Creator.toHex(Color.LIGHTBLUE) + ";");
+            vbox.setStyle("-fx-background-color: " + ColorChanger.toHex(Color.LIGHTBLUE) + ";");
         }
-
-
+        vbox.setAlignment(Pos.BOTTOM_LEFT);
+        this.label = new Label();
+        label.setStyle("-fx-text-fill: white;");
+        vbox.getChildren().add(label);
         return vbox;
     }
 
@@ -135,6 +139,14 @@ public class MyCell {
 
     public void setH(double h) {
         this.h = h;
+    }
+
+    public Label getLabel() {
+        return label;
+    }
+
+    public void setLabel(Label label) {
+        this.label = label;
     }
 
     @Override

@@ -5,17 +5,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import kotlin.jvm.Synchronized;
 import razvan.astaralgorithm.Domain.Algorithm;
 import razvan.astaralgorithm.Domain.GridCreator;
 import razvan.astaralgorithm.Domain.ListForSrcAndDest;
 import razvan.astaralgorithm.Domain.MyCell;
+import razvan.astaralgorithm.HelperClasses.ColorChanger;
 import razvan.astaralgorithm.Service.AlgorithmService;
 
 import java.util.*;
 
 public class AlgorithmController {
-    Queue<Map<MyCell[][], List<int[]>>> pathQueue = null;
-
+    private int count = 1;
+    private Set<MyCell> visitedCells;
     @FXML
     private Label warning;
     @FXML
@@ -36,8 +38,8 @@ public class AlgorithmController {
     private Button resetButton;
     private AlgorithmService algorithmService;
     private MyCell[][] grid;
-    int[] src = {-1,-1};
-    int[] dest = {-1,-1};
+    int[] src = {-1, -1};
+    int[] dest = {-1, -1};
     private ListForSrcAndDest listForSrcAndDest;
 
     public void onStartButton() {
@@ -53,7 +55,7 @@ public class AlgorithmController {
         stats();
     }
 
-    public void onResetButton(){
+    public void onResetButton() {
         startLabel.setText("SELECT SOURCE");
         endLabel.setText("SELECT DESTINATION");
         startButton.setVisible(true);
@@ -61,6 +63,7 @@ public class AlgorithmController {
         endLabel.setVisible(false);
         testButton.setVisible(false);
         warning.setVisible(false);
+        count = 1;
 
         algorithmService = this.getAlgorithmService();
         gridPane = algorithmService.getGridPane();
@@ -78,88 +81,100 @@ public class AlgorithmController {
 
         pane.setGridLinesVisible(true);
 
-        gridCreator.printGrid(grid);
         gridPane.maxHeight(1000);
         gridPane.maxWidth(1000);
 
         gridPane.add(pane, 0, 0);
     }
 
-    public void stats(){
+    public void stats() {
         grid = algorithmService.getGrid();
-
-        pathQueue = new LinkedList<>();
+        visitedCells = new HashSet<>();
 
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 MyCell cell = grid[i][j];
                 cell.getVbox().setOnMouseClicked(e -> {
-                    if(!listForSrcAndDest.isFull()){
-                        if(listForSrcAndDest.getElemAtIndex(0)[0] == -1 && listForSrcAndDest.getElemAtIndex(0)[1] == -1){
+
+                    if (!cell.isObstacle()) {
+                        return;
+                    }
+                    if (!listForSrcAndDest.isFull()) {
+                        if (listForSrcAndDest.getElemAtIndex(0)[0] == -1 && listForSrcAndDest.getElemAtIndex(0)[1] == -1) {
                             int[] coordinates = {cell.getRow(), cell.getCol()};
+                            ColorChanger.highlightStartCell(cell.getRow(), cell.getCol(), grid);
+                            cell.getLabel().setText(String.valueOf(count));
                             startLabel.setText("SOURCE: " + coordinates[0] + " " + coordinates[1]);
                             endLabel.setVisible(true);
                             listForSrcAndDest.add(coordinates);
-                        } else if (listForSrcAndDest.getElemAtIndex(1)[0] == -1 && listForSrcAndDest.getElemAtIndex(1)[1] == -1){
+                        } else if (listForSrcAndDest.getElemAtIndex(1)[0] == -1 && listForSrcAndDest.getElemAtIndex(1)[1] == -1) {
                             startLabel.setText("SOURCE: " + listForSrcAndDest.getElemAtIndex(0)[0] + " " + listForSrcAndDest.getElemAtIndex(0)[1]);
                             endLabel.setText("DESTINATION: " + cell.getRow() + " " + cell.getCol());
                             int[] coordinates = {cell.getRow(), cell.getCol()};
+                            ColorChanger.highlightEndCell(cell.getRow(), cell.getCol(), grid);
+                            cell.getLabel().setText(String.valueOf(count));
                             listForSrcAndDest.add(coordinates);
                         }
-                    }else{
-                        endLabel.setText("SELECT DESTINATION");
-                        startLabel.setText("SOURCE: " + cell.getRow() + " " + cell.getCol());
-                        int[] coordinates = {cell.getRow(), cell.getCol()};
-                        listForSrcAndDest.add(coordinates);
+                    } else {
+                        MyCell[] startCell = {grid[listForSrcAndDest.getElemAtIndex(0)[0]][listForSrcAndDest.getElemAtIndex(0)[1]]};
+                        MyCell[] endCell = {grid[listForSrcAndDest.getElemAtIndex(1)[0]][listForSrcAndDest.getElemAtIndex(1)[1]]};
+
+                        if (visitedCells.contains(startCell[0]) && visitedCells.contains(endCell[0])) {
+                            endLabel.setText("SELECT DESTINATION");
+                            startLabel.setText("SOURCE: " + cell.getRow() + " " + cell.getCol());
+                            int[] coordinates = {cell.getRow(), cell.getCol()};
+                            ColorChanger.highlightStartCell(cell.getRow(), cell.getCol(), grid);
+                            cell.getLabel().setText(String.valueOf(count));
+                            listForSrcAndDest.add(coordinates);
+                        } else {
+                            ColorChanger.backToGreen(listForSrcAndDest.getElemAtIndex(0)[0], listForSrcAndDest.getElemAtIndex(0)[1], grid);
+                            ColorChanger.backToGreen(listForSrcAndDest.getElemAtIndex(1)[0], listForSrcAndDest.getElemAtIndex(1)[1], grid);
+                            endLabel.setText("SELECT DESTINATION");
+                            startLabel.setText("SOURCE: " + cell.getRow() + " " + cell.getCol());
+                            int[] coordinates = {cell.getRow(), cell.getCol()};
+                            ColorChanger.highlightStartCell(cell.getRow(), cell.getCol(), grid);
+                            cell.getLabel().setText(String.valueOf(count));
+                            listForSrcAndDest.add(coordinates);
+                        }
                     }
                 });
             }
         }
     }
 
-    public void onTestButton() {
+    public void onFindPathButton() {
+
+        int c1 = count;
 
         Algorithm algorithm = new Algorithm(algorithmService.getGrid());
 
         src = listForSrcAndDest.getElemAtIndex(0);
         dest = listForSrcAndDest.getElemAtIndex(1);
 
-        if(listForSrcAndDest.getElemAtIndex(0)[0] == -1 && listForSrcAndDest.getElemAtIndex(0)[1] == -1){
+        if (listForSrcAndDest.getElemAtIndex(0)[0] == -1 && listForSrcAndDest.getElemAtIndex(0)[1] == -1) {
             warning.setVisible(true);
             warning.setText("PLEASE SELECT A SOURCE!");
             return;
         }
-        if(listForSrcAndDest.getElemAtIndex(1)[0] == -1 && listForSrcAndDest.getElemAtIndex(1)[1] == -1){
+        if (listForSrcAndDest.getElemAtIndex(1)[0] == -1 && listForSrcAndDest.getElemAtIndex(1)[1] == -1) {
             warning.setVisible(true);
             warning.setText("PLEASE SELECT A DESTINATION!");
             return;
         }
-        new Thread(()->{
-            System.out.println("working on thread " + Thread.currentThread().getName());
-            algorithm.aStarSearch(src, dest);
-        }).start();
-    }
 
+        visitedCells.add(grid[src[0]][src[1]]);
+        visitedCells.add(grid[dest[0]][dest[1]]);
 
+        Label startLabel = grid[src[0]][src[1]].getLabel();
+        startLabel.setText(String.valueOf(c1));
+        Label endLabel = grid[dest[0]][dest[1]].getLabel();
+        endLabel.setText(String.valueOf(c1));
 
-    public void drawPath(List<int[]> path, MyCell[][] grid) {
-        new Thread(() -> {
-            for (int[] cell : path) {
-                //iterate through MyCell[][] grid and find the cell with the same row and col as the cell in path
-                for (int i = 0; i < grid.length; i++) {
-                    for (int j = 0; j < grid[i].length; j++) {
-                        if (grid[i][j].getRow() == cell[0] && grid[i][j].getCol() == cell[1]) {
-                            grid[i][j].getVbox().setStyle("-fx-background-color: #00ff00");
-                        }
-                    }
-                }
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        Thread thread = new Thread(() -> {
+            algorithm.aStarSearch(src, dest, c1);
+        });
+        thread.start();
+        count++;
     }
 
     public void setService(AlgorithmService service) {

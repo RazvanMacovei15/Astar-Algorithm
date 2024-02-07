@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import java.util.*;
 
 public class Algorithm {
+    private int drawCount = 0;
     private boolean foundDest = false;
     private int ROW;
     private int COL;
@@ -45,8 +46,8 @@ public class Algorithm {
         return Math.sqrt((row - dest[0]) * (row - dest[0]) + (col - dest[1]) * (col - dest[1]));
     }
 
-    public List<int[]> tracePath(MyCell[][] myCellGrid, int[] dest) {
-        System.out.println("The Path is ");
+    public void tracePath(MyCell[][] myCellGrid, int[] dest) {
+//        System.out.println("The Path is ");
 
         int row = dest[0];
         int col = dest[1];
@@ -73,32 +74,31 @@ public class Algorithm {
             } else {
                 System.out.print("-> (" + p[0] + ", " + p[1] + ")");
             }
-        }); // Print the path
-        System.out.println();
+        });
+        System.out.println();// Print the path
 
-        return pathList;
+        drawPath(pathList, myCellGrid);
+
+
     }
 
-    private boolean ifDestination(int i, int j, int o, int r, MyCell[][] myCellGrid, int[] dest, String str) {
+    private boolean ifDestination(int i, int j, int o, int r, MyCell[][] myCellGrid, int[] dest) {
         foundDestination(o, r, myCellGrid);
         myCellGrid[o][r].setParent_i(i);
         myCellGrid[o][r].setParent_j(j);
-        System.out.println("The destination cell is found");
         tracePath(myCellGrid, dest);
-        drawPath(tracePath(myCellGrid, dest), myCellGrid);
         foundDest = true;
-        System.out.println("The destination cell is found in the " + str + " successor");
         return true;
     }
 
     // 1st Successor (North)
-    public boolean firstSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
+    public boolean firstSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest, int count) {
         // 1st Successor (North)
         if (isValid(i - 1, j)) {
             Background retrievedBackground = myCellGrid[i - 1][j].getVbox().getBackground();// Get the background color
             highlightSearch(i - 1, j, myCellGrid, retrievedBackground);// Highlight the cell
             if (isDestination(i - 1, j, dest)) {
-                return ifDestination(i, j, i - 1, j, myCellGrid, dest, "first");
+                return ifDestination(i, j, i - 1, j, myCellGrid, dest);
             } else if (!closedList[i - 1][j] && isUnBlocked(myCellGrid, i - 1, j)) {
                 gNew = myCellGrid[i][j].getG() + 1;
                 hNew = calculateHValue(i - 1, j, dest);
@@ -121,12 +121,12 @@ public class Algorithm {
     }
 
     //2nd Successor (South)
-    public boolean secondSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
+    public boolean secondSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest, int count) {
         if (isValid(i + 1, j)) {
             Background retrievedBackground = myCellGrid[i + 1][j].getVbox().getBackground();// Get the background color
             highlightSearch(i + 1, j, myCellGrid, retrievedBackground);// Highlight the cell
             if (isDestination(i + 1, j, dest)) {
-                return ifDestination(i, j, i + 1, j, myCellGrid, dest, "second");
+                return ifDestination(i, j, i + 1, j, myCellGrid, dest);
             } else if (!closedList[i + 1][j] && isUnBlocked(myCellGrid, i + 1, j)) {
                 gNew = myCellGrid[i][j].getG() + 1;
                 hNew = calculateHValue(i + 1, j, dest);
@@ -147,12 +147,12 @@ public class Algorithm {
     }
 
     //3rd Successor (East)
-    public boolean thirdSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
+    public boolean thirdSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest, int count) {
         if (isValid(i, j + 1)) {
             Background retrievedBackground = myCellGrid[i][j + 1].getVbox().getBackground();// Get the background color
             highlightSearch(i, j + 1, myCellGrid, retrievedBackground);// Highlight the cell
             if (isDestination(i, j + 1, dest)) {
-                return ifDestination(i, j, i, j + 1, myCellGrid, dest, "third");
+                return ifDestination(i, j, i, j + 1, myCellGrid, dest);
             } else if (!closedList[i][j + 1] && isUnBlocked(myCellGrid, i, j + 1)) {
                 gNew = myCellGrid[i][j].getG() + 1;
                 hNew = calculateHValue(i, j + 1, dest);
@@ -173,12 +173,12 @@ public class Algorithm {
     }
 
     //4th Successor (West)
-    public boolean forthSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
+    public boolean forthSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest, int count) {
         if (isValid(i, j - 1)) {
             if (isDestination(i, j - 1, dest)) {
                 Background retrievedBackground = myCellGrid[i][j - 1].getVbox().getBackground();// Get the background color
                 highlightSearch(i, j - 1, myCellGrid, retrievedBackground);// Highlight the cell
-                return ifDestination(i, j, i, j - 1, myCellGrid, dest, "forth");
+                return ifDestination(i, j, i, j - 1, myCellGrid, dest);
             } else if (!closedList[i][j - 1] && isUnBlocked(myCellGrid, i, j - 1)) {
 
                 gNew = myCellGrid[i][j].getG() + 1;
@@ -200,12 +200,12 @@ public class Algorithm {
     }
 
     //5th Successor (North-East)
-    public boolean fifthSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
+    public boolean fifthSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest, int count) {
         if (isValid(i - 1, j + 1)) {
             Background retrievedBackground = myCellGrid[i - 1][j + 1].getVbox().getBackground();// Get the background color
             highlightSearch(i - 1, j + 1, myCellGrid, retrievedBackground);// Highlight the cell
             if (isDestination(i - 1, j + 1, dest)) {
-                return ifDestination(i, j, i - 1, j + 1, myCellGrid, dest, "fifth");
+                return ifDestination(i, j, i - 1, j + 1, myCellGrid, dest);
             } else if (!closedList[i - 1][j + 1] && isUnBlocked(myCellGrid, i - 1, j + 1)) {
                 gNew = myCellGrid[i][j].getG() + 1.414;
                 hNew = calculateHValue(i - 1, j + 1, dest);
@@ -226,12 +226,12 @@ public class Algorithm {
     }
 
     //6th Successor (North-West)
-    public boolean sixthSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
+    public boolean sixthSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest, int count) {
         if (isValid(i - 1, j - 1)) {
             Background retrievedBackground = myCellGrid[i - 1][j - 1].getVbox().getBackground();// Get the background color
             highlightSearch(i - 1, j - 1, myCellGrid, retrievedBackground);// Highlight the cell
             if (isDestination(i - 1, j - 1, dest)) {
-                return ifDestination(i, j, i - 1, j - 1, myCellGrid, dest, "sixth");
+                return ifDestination(i, j, i - 1, j - 1, myCellGrid, dest);
             } else if (!closedList[i - 1][j - 1] && isUnBlocked(myCellGrid, i - 1, j - 1)) {
                 gNew = myCellGrid[i][j].getG() + 1.414;
                 hNew = calculateHValue(i - 1, j - 1, dest);
@@ -252,12 +252,12 @@ public class Algorithm {
     }
 
     //7th Successor (South-East)
-    public boolean seventhSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
+    public boolean seventhSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest, int count) {
         if (isValid(i + 1, j + 1)) {
             Background retrievedBackground = myCellGrid[i + 1][j + 1].getVbox().getBackground();// Get the background color
             highlightSearch(i + 1, j + 1, myCellGrid, retrievedBackground);// Highlight the cell
             if (isDestination(i + 1, j + 1, dest)) {
-                return ifDestination(i, j, i + 1, j + 1, myCellGrid, dest, "seventh");
+                return ifDestination(i, j, i + 1, j + 1, myCellGrid, dest);
             } else if (!closedList[i + 1][j + 1] && isUnBlocked(myCellGrid, i + 1, j + 1)) {
                 gNew = myCellGrid[i][j].getG() + 1.414;
                 hNew = calculateHValue(i + 1, j + 1, dest);
@@ -278,12 +278,12 @@ public class Algorithm {
     }
 
     //8th Successor (South-West)
-    public boolean eightSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest) {
+    public boolean eightSuccessor(int i, int j, MyCell[][] myCellGrid, boolean[][] closedList, Map<Double, int[]> openList, int[] dest, int count) {
         if (isValid(i + 1, j - 1)) {
             Background retrievedBackground = myCellGrid[i + 1][j - 1].getVbox().getBackground();// Get the background color
             highlightSearch(i + 1, j - 1, myCellGrid, retrievedBackground);// Highlight the cell
             if (isDestination(i + 1, j - 1, dest)) {
-                return ifDestination(i, j, i + 1, j - 1, myCellGrid, dest, "eighth");
+                return ifDestination(i, j, i + 1, j - 1, myCellGrid, dest);
             } else if (!closedList[i + 1][j - 1] && isUnBlocked(myCellGrid, i + 1, j - 1)) {
                 gNew = myCellGrid[i][j].getG() + 1.414;
                 hNew = calculateHValue(i + 1, j - 1, dest);
@@ -316,10 +316,9 @@ public class Algorithm {
         }
     }
 
-    public void aStarSearch(int[] src, int[] dest) {
+    public void aStarSearch(int[] src, int[] dest, int count) {
 
-        System.out.println("Source: (" + src[0] + ", " + src[1] + ")");
-        System.out.println("Destination: (" + dest[0] + ", " + dest[1] + ")");
+        drawCount = count;
 
         if (!isValid(src[0], src[1])) {
             System.out.println("Source is invalid");
@@ -365,23 +364,24 @@ public class Algorithm {
             highlightSearchedCell(i, j, myCellGrid);// Highlight the cell
 
             // 1st Successor (North)
-            if (firstSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
+            if (firstSuccessor(i, j, myCellGrid, closedList, openList, dest, count)) return;
             // 2nd Successor (South)
-            if (secondSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
+            if (secondSuccessor(i, j, myCellGrid, closedList, openList, dest, count)) return;
             // 3rd Successor (East)
-            if (thirdSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
+            if (thirdSuccessor(i, j, myCellGrid, closedList, openList, dest, count)) return;
             // 4th Successor (West)
-            if (forthSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
+            if (forthSuccessor(i, j, myCellGrid, closedList, openList, dest, count)) return;
             // 5th Successor (North-East)
-            if (fifthSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
+            if (fifthSuccessor(i, j, myCellGrid, closedList, openList, dest, count)) return;
             // 6th Successor (North-West)
-            if (sixthSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
+            if (sixthSuccessor(i, j, myCellGrid, closedList, openList, dest, count)) return;
             // 7th Successor (South-East)
-            if (seventhSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
+            if (seventhSuccessor(i, j, myCellGrid, closedList, openList, dest, count)) return;
             // 8th Successor (South-West)
-            if (eightSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
+            if (eightSuccessor(i, j, myCellGrid, closedList, openList, dest, count)) return;
         }
-        drawPath(pathList, myCellGrid);
+
+
         if (!foundDest) {
             System.out.println("Failed to find the destination cell");
         }
@@ -392,8 +392,15 @@ public class Algorithm {
             //iterate through MyCell[][] grid and find the cell with the same row and col as the cell in path
             for (int i = 0; i < grid.length; i++) {
                 for (int j = 0; j < grid[i].length; j++) {
+                    int finalI = i;
+                    int finalJ = j;
                     if (grid[i][j].getRow() == cell[0] && grid[i][j].getCol() == cell[1]) {
-                        grid[i][j].getVbox().setStyle("-fx-background-color: #00ff00");
+                        Platform.runLater(()->{
+                            grid[finalI][finalJ].getVbox().setStyle("-fx-background-color: #00ff00");
+                            grid[finalI][finalJ].getLabel().setText(String.valueOf(drawCount));
+                            grid[finalI][finalJ].getLabel().setTextFill(Color.BLACK);
+                            grid[finalI][finalJ].getLabel().setStyle("-fx-font-weight: bold");
+                        });
                     }
                 }
             }
@@ -437,6 +444,9 @@ public class Algorithm {
             myCellGrid[p][q].getVbox().setBackground(newBackground);
         });
     }
+
+
+
 
     private void backToOriginalColor(int p, int q, MyCell[][] myCellGrid, Background background) {
         Platform.runLater(() -> {
