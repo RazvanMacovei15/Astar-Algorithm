@@ -122,17 +122,14 @@ public class AlgorithmController {
 
         if(listForSrcAndDest.getElemAtIndex(0)[0] == -1 && listForSrcAndDest.getElemAtIndex(0)[1] == -1){
             warning.setVisible(true);
-            warning.setText("Please select a source!");
+            warning.setText("PLEASE SELECT A SOURCE!");
             return;
         }
         if(listForSrcAndDest.getElemAtIndex(1)[0] == -1 && listForSrcAndDest.getElemAtIndex(1)[1] == -1){
             warning.setVisible(true);
-            warning.setText("Please select a destination!");
+            warning.setText("PLEASE SELECT A DESTINATION!");
             return;
         }
-
-
-
         new Thread(()->{
             algorithm.aStarSearch(src, dest);
 

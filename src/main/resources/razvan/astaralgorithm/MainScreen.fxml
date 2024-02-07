@@ -49,10 +49,11 @@
                     minWidth="200"
                     minHeight="50"/>
         </VBox>
-        <GridPane GridPane.rowIndex="1" GridPane.columnIndex="0" minHeight="500" alignment="CENTER">
+        <GridPane GridPane.rowIndex="1" GridPane.columnIndex="0" minHeight="500" minWidth="200">
             <rowConstraints>
                 <RowConstraints percentHeight="20"/>
-                <RowConstraints percentHeight="80"/>
+                <RowConstraints percentHeight="75"/>
+                <RowConstraints percentHeight="5"/>
             </rowConstraints>
             <VBox GridPane.columnIndex="0" GridPane.rowIndex="0">
                 <TextField promptText="ROWS"
@@ -65,19 +66,18 @@
                            minWidth="200"/>
                 <Button text="RESET"
                         onAction="#onResetButton"
-                        fx:id="resetButton"
                         visible="false"
+                        fx:id="resetButton"
                         minWidth="200"
                         minHeight="50"/>
             </VBox>
-            <BorderPane GridPane.columnIndex="0" GridPane.rowIndex="1" minWidth="200">
-                <bottom>
-                    <Label fx:id="warning"
-                           text="WARNINGS LABEL!"
-                           visible="false"
-                           style=" --body-font-size: 20; -fx-text-fill: RED"/>
-                </bottom>
-            </BorderPane>
+            <Label fx:id="warning"
+                   GridPane.halignment="CENTER"
+                   GridPane.columnIndex="0"
+                   GridPane.rowIndex="2"
+                   text="WARNINGS LABEL!"
+                   visible="false"
+                   style=" --body-font-size: 20; -fx-text-fill: RED; -fx-font-weight: bold"/>
         </GridPane>
     </GridPane>
 </GridPane>
