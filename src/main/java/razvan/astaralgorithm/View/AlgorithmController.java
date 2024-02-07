@@ -135,6 +135,7 @@ public class AlgorithmController {
             return;
         }
         new Thread(()->{
+            System.out.println("working on thread " + Thread.currentThread().getName());
             algorithm.aStarSearch(src, dest);
         }).start();
     }
