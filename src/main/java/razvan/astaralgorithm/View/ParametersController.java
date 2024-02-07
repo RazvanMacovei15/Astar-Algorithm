@@ -58,15 +58,17 @@ public class ParametersController {
             Stage primaryStage = APP.getPrimaryStage();
 
             AlgorithmController algorithmController = loader.getController();
-            GridPane grid = service.getGridPane();
+            GridPane gridPane = service.getGridPane();
 
             GridPane gp = algorithmController.getGridPane();
-            grid.gridLinesVisibleProperty().setValue(true);
-            gp.add(grid, 0, 0);
+            gp.maxHeight(1000);
+            gp.maxWidth(1000);
+            gridPane.gridLinesVisibleProperty().setValue(true);
+            gp.add(gridPane, 0, 0);
 
             algorithmController.setService(service);
 
-            Scene algorithmScene = new Scene(root, 1200, 1000);
+            Scene algorithmScene = new Scene(root, 1210, 1000);
             primaryStage.setScene(algorithmScene);
             primaryStage.show();
         } catch (IOException e) {

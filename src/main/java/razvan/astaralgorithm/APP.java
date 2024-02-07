@@ -39,33 +39,3 @@ public class APP extends Application {
         launch(args);
     }
 }
-
-/*
-        Canvas canvas = new Canvas(1000, 1000);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        Pane gridPane = Creator.createGridPane(GRID_SIZE);
-        int[][] intGrid = Creator.getIntGrid();
-
-        VBox vbox = new VBox();
-
-        TextField startRow = new TextField();
-        TextField startCol = new TextField();
-        TextField endRow = new TextField();
-        TextField endCol = new TextField();
-        Button button = new Button("Start");
-        vbox.getChildren().addAll(startRow, startCol, endRow, endCol, button);
-
-        MyCell[][] grid = Creator.getGrid();
-
-        button.setOnMouseClicked(event -> {
-            int[] start = {Integer.parseInt(startRow.getText()), Integer.parseInt(startCol.getText())};
-            int[] end = {Integer.parseInt(endRow.getText()), Integer.parseInt(endCol.getText())};
-
-            Example.aStarSearch(intGrid, start, end);
-
-            List<int[]> path = Example.getPathList();
-
-
-        });
-*/

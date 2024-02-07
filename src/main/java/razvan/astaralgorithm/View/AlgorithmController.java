@@ -3,8 +3,10 @@ package razvan.astaralgorithm.View;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import razvan.astaralgorithm.Domain.Algorithm;
+import razvan.astaralgorithm.Domain.GridCreator;
 import razvan.astaralgorithm.Domain.ListForSrcAndDest;
 import razvan.astaralgorithm.Domain.MyCell;
 import razvan.astaralgorithm.Service.AlgorithmService;
@@ -12,6 +14,8 @@ import razvan.astaralgorithm.Service.AlgorithmService;
 import java.util.List;
 
 public class AlgorithmController {
+    @FXML
+    private Label warning;
     @FXML
     private GridPane gridPane;
     @FXML
@@ -22,6 +26,12 @@ public class AlgorithmController {
     private Label startLabel;
     @FXML
     private Label endLabel;
+    @FXML
+    private TextField rowsField;
+    @FXML
+    private TextField columnsField;
+    @FXML
+    private Button resetButton;
     private AlgorithmService algorithmService;
     private MyCell[][] grid;
     int[] src = {-1,-1};
@@ -30,14 +40,51 @@ public class AlgorithmController {
 
     public void onStartButton() {
         listForSrcAndDest = new ListForSrcAndDest();
+
         startButton.setVisible(false);
         startLabel.setVisible(true);
         testButton.setVisible(true);
+        resetButton.setVisible(true);
+        rowsField.setVisible(true);
+        columnsField.setVisible(true);
+
         stats();
+    }
+
+    public void onResetButton(){
+        startLabel.setText("SELECT SOURCE");
+        endLabel.setText("SELECT DESTINATION");
+        startButton.setVisible(true);
+        startLabel.setVisible(false);
+        endLabel.setVisible(false);
+        testButton.setVisible(false);
+
+        algorithmService = this.getAlgorithmService();
+        gridPane = algorithmService.getGridPane();
+
+        gridPane.getChildren().clear();
+
+        int rows = Integer.parseInt(rowsField.getText());
+        int columns = Integer.parseInt(columnsField.getText());
+
+        GridCreator gridCreator = new GridCreator(rows, columns);
+        MyCell[][] grid = gridCreator.createGrid();
+        GridPane pane = gridCreator.getGridPane();
+
+        algorithmService.setGrid(grid);
+
+        pane.setGridLinesVisible(true);
+
+        gridCreator.printGrid(grid);
+        gridPane.maxHeight(1000);
+        gridPane.maxWidth(1000);
+
+        gridPane.add(pane, 0, 0);
     }
 
     public void stats(){
         grid = algorithmService.getGrid();
+
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 MyCell cell = grid[i][j];
