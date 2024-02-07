@@ -11,9 +11,11 @@ import razvan.astaralgorithm.Domain.ListForSrcAndDest;
 import razvan.astaralgorithm.Domain.MyCell;
 import razvan.astaralgorithm.Service.AlgorithmService;
 
-import java.util.List;
+import java.util.*;
 
 public class AlgorithmController {
+    Queue<Map<MyCell[][], List<int[]>>> pathQueue = null;
+
     @FXML
     private Label warning;
     @FXML
@@ -86,6 +88,8 @@ public class AlgorithmController {
     public void stats(){
         grid = algorithmService.getGrid();
 
+        pathQueue = new LinkedList<>();
+
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 MyCell cell = grid[i][j];
@@ -132,10 +136,10 @@ public class AlgorithmController {
         }
         new Thread(()->{
             algorithm.aStarSearch(src, dest);
-
-            drawPath(algorithm.tracePath(algorithmService.getGrid(), dest), algorithmService.getGrid());
         }).start();
     }
+
+
 
     public void drawPath(List<int[]> path, MyCell[][] grid) {
         new Thread(() -> {

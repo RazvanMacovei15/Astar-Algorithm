@@ -85,6 +85,7 @@ public class Algorithm {
         myCellGrid[o][r].setParent_j(j);
         System.out.println("The destination cell is found");
         tracePath(myCellGrid, dest);
+        drawPath(tracePath(myCellGrid, dest), myCellGrid);
         foundDest = true;
         System.out.println("The destination cell is found in the " + str + " successor");
         return true;
@@ -380,8 +381,27 @@ public class Algorithm {
             // 8th Successor (South-West)
             if (eightSuccessor(i, j, myCellGrid, closedList, openList, dest)) return;
         }
+        drawPath(pathList, myCellGrid);
         if (!foundDest) {
             System.out.println("Failed to find the destination cell");
+        }
+    }
+
+    public void drawPath(List<int[]> path, MyCell[][] grid) {
+        for (int[] cell : path) {
+            //iterate through MyCell[][] grid and find the cell with the same row and col as the cell in path
+            for (int i = 0; i < grid.length; i++) {
+                for (int j = 0; j < grid[i].length; j++) {
+                    if (grid[i][j].getRow() == cell[0] && grid[i][j].getCol() == cell[1]) {
+                        grid[i][j].getVbox().setStyle("-fx-background-color: #00ff00");
+                    }
+                }
+            }
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -429,7 +449,7 @@ public class Algorithm {
         }
     }
 
-    private void foundDestination(int p, int q, MyCell[][] myCellGrid){
+    private void foundDestination(int p, int q, MyCell[][] myCellGrid) {
         Platform.runLater(() -> {
             // Set the background color
             BackgroundFill backgroundFill = new BackgroundFill(Color.DARKBLUE, CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY);
