@@ -70,6 +70,7 @@ public class MyCell {
 
     // Getters and setters
     public VBox getVbox() {
+
         return vbox;
     }
 
