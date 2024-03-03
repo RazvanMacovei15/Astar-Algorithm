@@ -1,10 +1,11 @@
 # A* Algorithm - Visualised
-***
-## A visualised representation of the A* algorithm in JavaFX
-### This app is aimed to help better understand the A* algorithm by visualising it on a matrix. The user can select the start and end points and the algorithm will find the shortest path between them. The app also has a reset button that will reset the matrix to a new state chosen by the user.
-***
 
-## Table of contents:
+## A visualised representation of the A* algorithm in JavaFX
+
+#### This app is aimed to help better understand the A* algorithm by visualising it on a matrix. The user can select the start and end points and the algorithm will find the shortest path between them. The app also has a reset button that will reset the matrix to a new state chosen by the user.
+
+
+### Table of contents:
 1. Technologies used
 2. The need
 3. Features
@@ -32,6 +33,10 @@
 ### In Action:
 * Snapshots of the app in action:
 
+<img width="312" alt="Screenshot 2024-03-02 at 14 19 04" src="https://github.com/RazvanMacovei15/Astar-Algorithm/assets/95320896/396497d7-50a9-4ef4-a56d-3d2b8372ec21">
+<img width="1313" alt="Screenshot 2024-03-02 at 14 20 39" src="https://github.com/RazvanMacovei15/Astar-Algorithm/assets/95320896/2965d965-2cd7-4810-9b98-06534db2e5b3">
 
 * Video of the app in action:
+
+https://github.com/RazvanMacovei15/Astar-Algorithm/assets/95320896/31f275ae-f84f-4a21-9627-ab32948a5477
 
