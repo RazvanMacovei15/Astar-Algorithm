@@ -1,11 +1,11 @@
-package razvan.astaralgorithm.HelperClasses;
+package razvan.astaralgorithm.helper;
 
 import javafx.application.Platform;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
-import razvan.astaralgorithm.Domain.MyCell;
+import razvan.astaralgorithm.domain.MyCell;
 
 public class ColorChanger {
     public static void highlightStartCell(int p, int q, MyCell[][] myCellGrid) {

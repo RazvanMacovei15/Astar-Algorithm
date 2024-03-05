@@ -13,12 +13,12 @@ module razvan.astaralgorithm {
 
     opens razvan.astaralgorithm to javafx.fxml;
     exports razvan.astaralgorithm;
-    opens razvan.astaralgorithm.Domain to javafx.graphics, javafx.fxml;
-    exports razvan.astaralgorithm.Domain;
-    opens razvan.astaralgorithm.View to javafx.graphics, javafx.fxml;
-    exports razvan.astaralgorithm.View;
-    opens razvan.astaralgorithm.Service to javafx.graphics, javafx.fxml;
-    exports razvan.astaralgorithm.Service;
-    exports razvan.astaralgorithm.HelperClasses;
-    opens razvan.astaralgorithm.HelperClasses to javafx.fxml, javafx.graphics;
+    opens razvan.astaralgorithm.domain to javafx.graphics, javafx.fxml;
+    exports razvan.astaralgorithm.domain;
+    opens razvan.astaralgorithm.view to javafx.graphics, javafx.fxml;
+    exports razvan.astaralgorithm.view;
+    opens razvan.astaralgorithm.service to javafx.graphics, javafx.fxml;
+    exports razvan.astaralgorithm.service;
+    exports razvan.astaralgorithm.helper;
+    opens razvan.astaralgorithm.helper to javafx.fxml, javafx.graphics;
 }

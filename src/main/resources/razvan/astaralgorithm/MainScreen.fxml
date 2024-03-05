@@ -8,7 +8,7 @@
 
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="razvan.astaralgorithm.View.AlgorithmController" gridLinesVisible="true">
+          fx:controller="razvan.astaralgorithm.view.AlgorithmController" gridLinesVisible="true">
     <columnConstraints>
         <ColumnConstraints minWidth="1000"/>
         <ColumnConstraints minWidth="200"/>

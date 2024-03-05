@@ -1,4 +1,4 @@
-package razvan.astaralgorithm.Domain;
+package razvan.astaralgorithm.domain;
 
 import java.util.ArrayList;
 import java.util.List;

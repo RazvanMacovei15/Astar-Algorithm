@@ -1,6 +1,5 @@
-package razvan.astaralgorithm.View;
+package razvan.astaralgorithm.view;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,12 +7,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import razvan.astaralgorithm.APP;
-import razvan.astaralgorithm.Domain.GridCreator;
-import razvan.astaralgorithm.Domain.MyCell;
-import razvan.astaralgorithm.Service.AlgorithmService;
+import razvan.astaralgorithm.domain.GridCreator;
+import razvan.astaralgorithm.domain.MyCell;
+import razvan.astaralgorithm.service.AlgorithmService;
 
 import java.io.IOException;
 

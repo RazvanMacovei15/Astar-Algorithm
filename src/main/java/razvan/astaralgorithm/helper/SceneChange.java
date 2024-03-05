@@ -1,4 +1,4 @@
-package razvan.astaralgorithm.HelperClasses;
+package razvan.astaralgorithm.helper;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

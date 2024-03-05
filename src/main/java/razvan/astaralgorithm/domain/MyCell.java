@@ -1,10 +1,10 @@
-package razvan.astaralgorithm.Domain;
+package razvan.astaralgorithm.domain;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import razvan.astaralgorithm.HelperClasses.ColorChanger;
+import razvan.astaralgorithm.helper.ColorChanger;
 
 import java.util.Random;
 

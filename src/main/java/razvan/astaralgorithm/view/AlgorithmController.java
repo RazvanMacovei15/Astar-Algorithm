@@ -1,17 +1,16 @@
-package razvan.astaralgorithm.View;
+package razvan.astaralgorithm.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import kotlin.jvm.Synchronized;
-import razvan.astaralgorithm.Domain.Algorithm;
-import razvan.astaralgorithm.Domain.GridCreator;
-import razvan.astaralgorithm.Domain.ListForSrcAndDest;
-import razvan.astaralgorithm.Domain.MyCell;
-import razvan.astaralgorithm.HelperClasses.ColorChanger;
-import razvan.astaralgorithm.Service.AlgorithmService;
+import razvan.astaralgorithm.domain.Algorithm;
+import razvan.astaralgorithm.domain.GridCreator;
+import razvan.astaralgorithm.domain.ListForSrcAndDest;
+import razvan.astaralgorithm.domain.MyCell;
+import razvan.astaralgorithm.helper.ColorChanger;
+import razvan.astaralgorithm.service.AlgorithmService;
 
 import java.util.*;
 

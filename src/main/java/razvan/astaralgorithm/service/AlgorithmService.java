@@ -1,9 +1,8 @@
-package razvan.astaralgorithm.Service;
+package razvan.astaralgorithm.service;
 
 import javafx.scene.layout.GridPane;
-import razvan.astaralgorithm.Domain.Algorithm;
-import razvan.astaralgorithm.Domain.GridCreator;
-import razvan.astaralgorithm.Domain.MyCell;
+import razvan.astaralgorithm.domain.Algorithm;
+import razvan.astaralgorithm.domain.MyCell;
 
 public class AlgorithmService {
     private Algorithm algorithm;

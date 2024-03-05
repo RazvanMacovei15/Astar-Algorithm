@@ -1,4 +1,4 @@
-package razvan.astaralgorithm.Domain;
+package razvan.astaralgorithm.domain;
 
 import javafx.application.Platform;
 import javafx.scene.layout.Background;
